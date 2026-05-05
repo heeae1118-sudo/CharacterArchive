@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>자캐 정리</title>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -12,103 +12,175 @@ body{
     radial-gradient(circle at 20% 20%, #f8fbf7 0 8px, transparent 9px),
     radial-gradient(circle at 80% 30%, #e1eddd 0 7px, transparent 8px),
     #eef4ed;
-  font-family:'Gaegu', cursive;
-  font-size:21px;
+  font-family:'Gowun Dodum', sans-serif;
   color:#3f4f44;
   padding:24px;
 }
 a{text-decoration:none;color:inherit}
-button,input,select,textarea{
-  font-family:'Gaegu';
-  font-size:18px;
-  border:none;
-  border-radius:999px;
-  padding:10px 14px;
-  margin:5px;
+button,input,select{
+  font-family:'Gowun Dodum', sans-serif;
+  font-size:17px;
 }
 button{
-  background:#dbe9d7;
+  border:none;
   cursor:pointer;
 }
-button:hover{background:#c9dfc3}
-.wrap{max-width:1100px;margin:auto}
+.wrap{
+  max-width:1100px;
+  margin:auto;
+}
 
+/* 오른쪽 위 */
 .top{
   position:fixed;
   top:16px;
   right:16px;
   z-index:100;
+  display:flex;
+  gap:10px;
 }
+
+/* 아이콘 버튼 */
 .icon{
   width:48px;
   height:48px;
   border-radius:50%;
-  box-shadow:0 4px 12px #0002;
+  background:transparent;
+  border:2px solid #a8bca3;
+  color:#5c7058;
+  font-size:20px;
+  position:relative;
+  transition:.2s;
 }
+.icon:hover{
+  background:#f4f8f3;
+  transform:translateY(-2px);
+}
+.icon::after{
+  content:attr(data-tip);
+  position:absolute;
+  right:60px;
+  top:50%;
+  transform:translateY(-50%);
+  background:#fff;
+  color:#5c7058;
+  padding:6px 10px;
+  border-radius:12px;
+  white-space:nowrap;
+  font-size:14px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+.icon:hover::after{
+  opacity:1;
+}
+
 .admin{display:none}
-body.edit .admin{display:inline-block}
+body.edit .admin{display:inline-flex}
 body.edit #loginBtn{display:none}
 
+/* 카테고리 */
 .cat-bar{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   justify-content:center;
-  margin:54px 0 18px;
+  margin:60px 0 18px;
 }
 .cat{
   background:#dbe9d7;
+  padding:8px 16px;
   border-radius:999px;
+  transition:.2s;
+}
+.cat:hover{
+  transform:translateY(-2px);
 }
 .cat.active{
   background:#8fae8c;
   color:white;
 }
 
+/* 박스 */
+.center-btns{
+  text-align:center;
+  margin-bottom:14px;
+}
+.soft-btn{
+  background:#dbe9d7;
+  color:#3f4f44;
+  border-radius:999px;
+  padding:10px 16px;
+  margin:5px;
+}
+.soft-btn:hover{
+  background:#c9dfc3;
+}
 .box{
   display:none;
-  background:#f8fbf7dd;
-  padding:16px;
-  margin:14px 0;
+  background:#f8fbf7;
+  padding:18px;
   border-radius:28px;
-  box-shadow:0 6px 16px #0001;
+  margin-bottom:16px;
+  box-shadow:0 6px 14px rgba(0,0,0,.05);
   text-align:center;
 }
-.box input,.box select{
+.box input,
+.box select{
+  border:none;
   background:white;
-  box-shadow:inset 0 0 0 1px #d6e2d3;
+  border-radius:16px;
+  padding:12px;
+  margin:6px;
+  width:220px;
+  box-shadow:inset 0 0 0 1px #d9e4d5;
 }
+.box button{
+  background:#dbe9d7;
+  border-radius:16px;
+  padding:10px 16px;
+}
+
+/* 카드 */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:20px;
+  gap:18px;
 }
 .card{
   position:relative;
   border-radius:30px;
   overflow:hidden;
   background:white;
-  box-shadow:0 8px 18px #0002;
-  transition:.22s;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  transition:.2s;
 }
-.card:hover{transform:translateY(-4px)}
+.card:hover{
+  transform:translateY(-4px);
+}
 .card img{
   width:100%;
   aspect-ratio:1/1;
   object-fit:contain;
-  display:block;
   padding:12px;
   box-sizing:border-box;
+  display:block;
 }
 .text{
   text-align:center;
   background:#ffffffcc;
   padding:10px;
-  font-size:24px;
+  font-family:'Gaegu', cursive;
+  font-size:28px;
+  font-weight:700;
 }
 .sub{
-  font-size:15px;
+  font-size:14px;
   color:#6f8074;
+  font-family:'Gowun Dodum', sans-serif;
+  font-weight:400;
 }
 .overlay{
   position:absolute;
@@ -119,14 +191,16 @@ body.edit #loginBtn{display:none}
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:18px;
-  box-sizing:border-box;
+  padding:16px;
   opacity:0;
   transition:.2s;
   pointer-events:none;
 }
-.card:hover .overlay{opacity:1}
+.card:hover .overlay{
+  opacity:1;
+}
 
+/* 카드 메뉴 */
 .menu-btn{
   position:absolute;
   top:10px;
@@ -136,115 +210,155 @@ body.edit #loginBtn{display:none}
 .menu{
   display:none;
   position:absolute;
-  top:58px;
+  top:56px;
   right:10px;
-  z-index:11;
   background:white;
-  border-radius:20px;
-  box-shadow:0 5px 15px #0002;
+  border-radius:18px;
   overflow:hidden;
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
+  z-index:11;
 }
 .menu button{
   display:block;
   width:90px;
-  margin:0;
-  border-radius:0;
+  padding:10px;
+  background:white;
+}
+.menu button:hover{
+  background:#eef4ed;
 }
 
+/* 오른쪽 아래 */
 .float{
   position:fixed;
   right:18px;
   bottom:18px;
-  z-index:100;
   display:flex;
   flex-direction:column;
-  gap:8px;
-}
-.float button{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  box-shadow:0 5px 14px #0002;
+  gap:10px;
+  z-index:100;
 }
 
+/* 팝업 */
 .popup-bg{
   display:none;
   position:fixed;
   inset:0;
-  background:#0008;
+  background:#0007;
   align-items:center;
   justify-content:center;
   z-index:999;
 }
 .popup{
-  background:#f8fbf7;
   width:300px;
-  padding:24px;
+  background:#f8fbf7;
   border-radius:30px;
+  padding:24px;
   text-align:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
 }
-.popup input,.popup textarea{
+.popup-title{
+  font-family:'Gaegu', cursive;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.popup input{
   width:88%;
+  border:none;
+  border-radius:16px;
+  padding:12px;
   background:white;
+  box-shadow:inset 0 0 0 1px #d9e4d5;
+  font-family:'Gowun Dodum', sans-serif;
+}
+.popup-btns{
+  margin-top:14px;
+}
+.popup-btns button{
+  background:#dbe9d7;
+  border-radius:14px;
+  padding:10px 14px;
+  margin:4px;
 }
 
+/* 모바일 */
 @media(max-width:699px){
-  body{font-size:18px;padding:14px}
-  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .card{border-radius:22px}
-  .text{font-size:20px;padding:8px}
-  .cat-bar{margin-top:60px}
+  body{
+    padding:14px;
+  }
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  .card{
+    border-radius:22px;
+  }
+  .text{
+    font-size:22px;
+  }
+  .box input,
+  .box select{
+    width:90%;
+  }
+  .cat-bar{
+    margin-top:60px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="top">
-  <button id="loginBtn" class="icon" onclick="login()">⚙️</button>
-  <button class="icon admin" onclick="logout()">✕</button>
+  <button id="loginBtn" class="icon" data-tip="관리자 모드" onclick="login()">⚙️</button>
+  <button class="icon admin" data-tip="관리자 모드 끄기" onclick="logout()">✕</button>
 </div>
 
 <div class="wrap">
 
-<div class="cat-bar" id="catBar"></div>
+  <div class="cat-bar" id="catBar"></div>
 
-<div style="text-align:center">
-  <button class="admin" onclick="toggle(catBox)">+ 카테고리</button>
-  <button class="admin" onclick="toggle(cardBox)">+ 카드</button>
-  <button class="admin" onclick="changePw()">비번 변경</button>
-</div>
+  <div class="center-btns">
+    <button class="soft-btn admin" onclick="toggle(catBox)">+ 카테고리</button>
+    <button class="soft-btn admin" onclick="toggle(cardBox)">+ 카드</button>
+    <button class="soft-btn admin" onclick="changePw()">비밀번호 변경</button>
+  </div>
 
-<div class="box" id="catBox">
-  <input id="newCat" placeholder="카테고리 이름">
-  <button onclick="addCat()">추가</button>
-</div>
+  <div class="box" id="catBox">
+    <input id="newCat" placeholder="카테고리 이름">
+    <button onclick="addCat()">추가</button>
+  </div>
 
-<div class="box" id="cardBox">
-  <input id="name" placeholder="이름">
-  <input id="img" placeholder="이미지 URL">
-  <input type="file" id="file">
-  <input id="link" placeholder="링크">
-  <input id="desc" placeholder="설명">
-  <select id="catSelect"></select>
-  <button id="saveBtn" onclick="saveCard()">생성</button>
-</div>
+  <div class="box" id="cardBox">
+    <input id="name" placeholder="이름">
+    <input id="img" placeholder="이미지 URL">
+    <input type="file" id="file">
+    <input id="link" placeholder="링크">
+    <input id="desc" placeholder="설명">
+    <select id="catSelect"></select>
+    <button id="saveBtn" onclick="saveCard()">생성</button>
+  </div>
 
-<div class="grid" id="grid"></div>
+  <div class="grid" id="grid"></div>
+
 </div>
 
 <div class="float">
-  <button onclick="searchCard()">🔍</button>
-  <button class="admin" onclick="backup()">📦</button>
-  <button class="admin" onclick="loadData()">📂</button>
-  <button class="admin" onclick="resetAll()">🧹</button>
+  <button class="icon" data-tip="검색" onclick="searchCard()">🔍</button>
+  <button class="icon admin" data-tip="백업" onclick="backup()">📦</button>
+  <button class="icon admin" data-tip="불러오기" onclick="loadData()">📂</button>
+  <button class="icon admin" data-tip="초기화" onclick="resetAll()">🧹</button>
 </div>
 
 <div class="popup-bg" id="popupBg">
   <div class="popup">
-    <div id="popupText"></div>
-    <textarea id="popupInput" rows="3"></textarea><br>
-    <button onclick="popupOk()">확인</button>
-    <button onclick="popupCancel()">취소</button>
+    <div class="popup-title" id="popupText"></div>
+    <input id="popupInput">
+    <div class="popup-btns">
+      <button onclick="popupOk()">확인</button>
+      <button onclick="popupCancel()">취소</button>
+    </div>
   </div>
 </div>
 
@@ -256,11 +370,16 @@ if(!user){
   location.href=location.pathname+"?user="+encodeURIComponent(n);
 }
 
-const key="cards_"+user, catKey="cats_"+user, pwKey="pw_"+user;
+const key="cards_"+user;
+const catKey="cats_"+user;
+const pwKey="pw_"+user;
+
 let cards=JSON.parse(localStorage.getItem(key)||"[]");
 let cats=JSON.parse(localStorage.getItem(catKey)||'["자컾","페어","드림","자캐","그 외","없음"]');
 let password=localStorage.getItem(pwKey)||"1234";
-let current="all", editIndex=null, popupCallback=null;
+let current="all";
+let editIndex=null;
+let popupCallback=null;
 
 function save(){
   localStorage.setItem(key,JSON.stringify(cards));
@@ -268,42 +387,65 @@ function save(){
   localStorage.setItem(pwKey,password);
 }
 
-function openPopup(text,cb){
+function openPopup(text,cb,type="text"){
   popupText.innerText=text;
   popupInput.value="";
+  popupInput.type=type;
   popupBg.style.display="flex";
   popupCallback=cb;
   setTimeout(()=>popupInput.focus(),50);
 }
+
 function popupOk(){
   popupBg.style.display="none";
   if(popupCallback)popupCallback(popupInput.value);
 }
-function popupCancel(){popupBg.style.display="none"}
+
+function popupCancel(){
+  popupBg.style.display="none";
+}
 
 function login(){
   openPopup("비밀번호 입력",(v)=>{
-    if(v===password)document.body.classList.add("edit");
-    else alert("비밀번호가 틀렸습니다");
-  });
+    if(v===password){
+      document.body.classList.add("edit");
+    }else{
+      alert("비밀번호가 틀렸습니다");
+    }
+  },"password");
 }
+
 function logout(){
   document.body.classList.remove("edit");
   catBox.style.display="none";
   cardBox.style.display="none";
   closeMenus();
 }
+
 function changePw(){
   openPopup("기존 비밀번호",(old)=>{
-    if(old!==password){alert("기존 비밀번호가 틀렸습니다");return;}
+    if(old!==password){
+      alert("기존 비밀번호가 틀렸습니다");
+      return;
+    }
     openPopup("새 비밀번호",(nw)=>{
+      if(!nw){
+        alert("새 비밀번호를 입력해주세요");
+        return;
+      }
       openPopup("새 비밀번호 확인",(ck)=>{
-        if(nw!==ck){alert("비밀번호가 일치하지 않습니다");return;}
-        password=nw; save(); alert("변경 완료");
-      });
-    });
-  });
+        if(nw!==ck){
+          alert("비밀번호가 일치하지 않습니다");
+          return;
+        }
+        password=nw;
+        save();
+        alert("비밀번호가 변경되었습니다");
+      },"password");
+    },"password");
+  },"password");
 }
+
 function toggle(el){
   if(!document.body.classList.contains("edit"))return;
   el.style.display=el.style.display==="block"?"none":"block";
@@ -316,48 +458,74 @@ function renderCat(){
   let all=document.createElement("button");
   all.innerText="전체";
   all.className="cat"+(current==="all"?" active":"");
-  all.onclick=()=>{current="all";renderCat();render()};
+  all.onclick=()=>{
+    current="all";
+    renderCat();
+    render();
+  };
   catBar.appendChild(all);
 
   cats.forEach(c=>{
     let b=document.createElement("button");
     b.innerText=c;
     b.className="cat"+(current===c?" active":"");
-    b.onclick=()=>{current=c;renderCat();render()};
+    b.onclick=()=>{
+      current=c;
+      renderCat();
+      render();
+    };
+
     b.oncontextmenu=e=>{
       e.preventDefault();
       if(!document.body.classList.contains("edit"))return;
       if(confirm("정말 이 카테고리를 삭제하시겠습니까?")){
         cats=cats.filter(x=>x!==c);
         if(!cats.includes("없음"))cats.push("없음");
-        cards.forEach(card=>{if(card.cat===c)card.cat="없음"});
-        save();renderCat();render();
+        cards.forEach(card=>{
+          if(card.cat===c)card.cat="없음";
+        });
+        save();
+        renderCat();
+        render();
       }
     };
+
     catBar.appendChild(b);
 
     let op=document.createElement("option");
-    op.value=c; op.innerText=c;
+    op.value=c;
+    op.innerText=c;
     catSelect.appendChild(op);
   });
 }
 
 function addCat(){
+  if(!document.body.classList.contains("edit"))return;
+
   let v=newCat.value.trim();
   if(!v)return;
+
   if(!cats.includes(v))cats.push(v);
   newCat.value="";
-  save();renderCat();
+
+  save();
+  renderCat();
 }
 
 function saveCard(){
   if(!document.body.classList.contains("edit"))return;
-  let f=file.files[0];
-  if(f){
-    let r=new FileReader();
-    r.onload=e=>pushCard(e.target.result);
-    r.readAsDataURL(f);
-  }else pushCard(img.value);
+
+  let fileObj=file.files[0];
+
+  if(fileObj){
+    let reader=new FileReader();
+    reader.onload=function(e){
+      pushCard(e.target.result);
+    };
+    reader.readAsDataURL(fileObj);
+  }else{
+    pushCard(img.value);
+  }
 }
 
 function pushCard(src){
@@ -369,90 +537,155 @@ function pushCard(src){
     cat:catSelect.value || "없음",
     date: editIndex===null ? Date.now() : cards[editIndex].date
   };
-  if(editIndex===null)cards.push(obj);
-  else{cards[editIndex]=obj; editIndex=null; saveBtn.innerText="생성";}
-  clearForm(); save(); render();
+
+  if(editIndex===null){
+    cards.push(obj);
+  }else{
+    cards[editIndex]=obj;
+    editIndex=null;
+    saveBtn.innerText="생성";
+  }
+
+  clearForm();
+  save();
+  render();
 }
 
 function clearForm(){
-  name.value=""; img.value=""; link.value=""; desc.value=""; file.value="";
+  name.value="";
+  img.value="";
+  link.value="";
+  desc.value="";
+  file.value="";
 }
 
 function render(list=cards){
   grid.innerHTML="";
-  [...list].sort((a,b)=>b.date-a.date).forEach((c)=>{
+
+  let showList=[...list].sort((a,b)=>(b.date||0)-(a.date||0));
+
+  showList.forEach(c=>{
+    if(current!=="all" && c.cat!==current)return;
+
     let realIndex=cards.indexOf(c);
-    if(current!=="all"&&c.cat!==current)return;
+
     let d=document.createElement("div");
     d.innerHTML=`
-    <div class="card">
-      <a href="${c.link}">
-        <img src="${c.img}">
-        <div class="overlay">${c.desc}</div>
-        <div class="text">${c.name}<div class="sub">${c.cat||"없음"}</div></div>
-      </a>
-      <button class="menu-btn admin" onclick="menu(event,${realIndex})">⋯</button>
-      <div class="menu" id="m${realIndex}">
-        <button onclick="editCard(event,${realIndex})">수정</button>
-        <button onclick="del(event,${realIndex})">삭제</button>
+      <div class="card">
+        <a href="${c.link}">
+          <img src="${c.img}">
+          <div class="overlay">${c.desc}</div>
+          <div class="text">
+            ${c.name || "이름 없음"}
+            <div class="sub">${c.cat || "없음"}</div>
+          </div>
+        </a>
+
+        <button class="menu-btn icon admin" data-tip="메뉴" onclick="menu(event,${realIndex})">⋯</button>
+
+        <div class="menu" id="m${realIndex}">
+          <button onclick="editCard(event,${realIndex})">수정</button>
+          <button onclick="del(event,${realIndex})">삭제</button>
+        </div>
       </div>
-    </div>`;
+    `;
     grid.appendChild(d);
   });
 }
 
 function editCard(e,i){
-  e.preventDefault(); e.stopPropagation();
-  let c=cards[i]; editIndex=i;
+  e.preventDefault();
+  e.stopPropagation();
+
+  if(!document.body.classList.contains("edit"))return;
+
+  let c=cards[i];
+  editIndex=i;
+
   cardBox.style.display="block";
-  name.value=c.name; img.value=c.img; link.value=c.link; desc.value=c.desc; catSelect.value=c.cat;
+  name.value=c.name || "";
+  img.value=c.img || "";
+  link.value=c.link || "";
+  desc.value=c.desc || "";
+  catSelect.value=c.cat || "없음";
+  file.value="";
   saveBtn.innerText="수정";
+
   closeMenus();
 }
 
 function del(e,i){
-  e.preventDefault(); e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
+
   if(!document.body.classList.contains("edit"))return;
+
   if(confirm("정말 삭제할까?")){
-    cards.splice(i,1); save(); render();
+    cards.splice(i,1);
+    save();
+    render();
   }
 }
 
 function menu(e,i){
-  e.preventDefault(); e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
+
   if(!document.body.classList.contains("edit"))return;
+
   closeMenus();
-  document.getElementById("m"+i).style.display="block";
+  let target=document.getElementById("m"+i);
+  if(target)target.style.display="block";
 }
-function closeMenus(){document.querySelectorAll(".menu").forEach(m=>m.style.display="none")}
+
+function closeMenus(){
+  document.querySelectorAll(".menu").forEach(m=>m.style.display="none");
+}
 
 function searchCard(){
   openPopup("검색어 입력",(w)=>{
-    if(!w){render();return;}
-    render(cards.filter(c=>(c.name+c.desc+c.cat).includes(w)));
+    if(!w){
+      render();
+      return;
+    }
+    render(cards.filter(c=>((c.name||"")+(c.desc||"")+(c.cat||"")).includes(w)));
   });
 }
 
 function backup(){
+  if(!document.body.classList.contains("edit"))return;
+
   let data=JSON.stringify({cards,cats,password});
-  navigator.clipboard.writeText(data);
-  alert("백업 데이터가 복사되었습니다");
+  navigator.clipboard.writeText(data).then(()=>{
+    alert("백업 데이터가 복사되었습니다");
+  }).catch(()=>{
+    openPopup("아래 내용을 복사하세요",()=>{});
+    popupInput.value=data;
+  });
 }
 
 function loadData(){
+  if(!document.body.classList.contains("edit"))return;
+
   openPopup("백업 데이터를 붙여넣기",(txt)=>{
     try{
       let d=JSON.parse(txt);
       cards=d.cards||[];
       cats=d.cats||cats;
       password=d.password||password;
-      save(); renderCat(); render();
+      save();
+      renderCat();
+      render();
       alert("불러오기 완료");
-    }catch(e){alert("데이터 형식이 이상합니다");}
+    }catch(e){
+      alert("데이터 형식이 이상합니다");
+    }
   });
 }
 
 function resetAll(){
+  if(!document.body.classList.contains("edit"))return;
+
   if(confirm("정말 완전 초기화할까?")){
     localStorage.removeItem(key);
     localStorage.removeItem(catKey);
@@ -461,11 +694,15 @@ function resetAll(){
   }
 }
 
-document.addEventListener("click",closeMenus);
+document.addEventListener("click",function(e){
+  if(!e.target.closest(".menu") && !e.target.closest(".menu-btn")){
+    closeMenus();
+  }
+});
 
 renderCat();
 render();
 </script>
+
 </body>
-</html>
 </html>

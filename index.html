@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>자캐 정리</title>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
+
+<style>
+body{background:#eef4ed;font-family:'Gaegu';padding:20px}
+button,input,select{border:none;border-radius:14px;padding:6px;margin:3px;font-family:'Gaegu'}
+button{background:#dbe9d7;cursor:pointer}
+.wrap{max-width:800px;margin:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{position:relative;border-radius:16px;overflow:hidden;background:#fff}
+.card img{width:100%;height:130px;object-fit:contain}
+.overlay{position:absolute;inset:0;background:#0008;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0}
+.card:hover .overlay{opacity:1}
+.text{text-align:center;background:#fff8}
+
+.menu-btn{position:absolute;top:5px;right:5px;z-index:10}
+.menu{display:none;position:absolute;top:30px;right:5px;background:#fff;z-index:11}
+
+.box{display:none;background:#f8fbf7;padding:10px;margin:10px 0}
+
+.cat-bar{text-align:center;margin-bottom:10px}
+.active{background:#8fae8c;color:#fff}
+
+.admin{display:none}
+body.edit .admin{display:inline-block}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<button onclick="login()">관리모드</button>
+<button class="admin" onclick="changePw()">비밀번호 변경</button>
+<button class="admin" onclick="logout()">관리모드 끄기</button>
+
+<div class="cat-bar" id="catBar"></div>
+
+<button class="admin" onclick="toggle(catBox)">+ 카테고리</button>
+<div class="box" id="catBox">
+  <input id="newCat" placeholder="카테고리">
+  <button onclick="addCat()">추가</button>
+</div>
+
+<button class="admin" onclick="toggle(cardBox)">+ 카드</button>
+<div class="box" id="cardBox">
+  <input id="name" placeholder="이름">
+  <input id="img" placeholder="이미지 URL">
+  <input type="file" id="file">
+  <input id="link" placeholder="링크">
+  <input id="desc" placeholder="설명">
+  <select id="catSelect"></select>
+  <button onclick="addCard()">생성</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+</div>
+
+<script>
+/* 유저 자동 생성 */
+let user = new URLSearchParams(location.search).get("user");
+
+if(!user){
+  let name = prompt("닉네임 입력");
+  if(!name) name = "guest"+Math.floor(Math.random()*1000);
+  location.href = location.pathname + "?user=" + name;
+}
+
+/* 저장 키 */
+const key = "cards_"+user;
+const catKey = "cats_"+user;
+const pwKey = "pw_"+user;
+
+/* 데이터 */
+let cards = JSON.parse(localStorage.getItem(key)||"[]");
+let cats = JSON.parse(localStorage.getItem(catKey)||'["자컾","페어","드림","자캐"]');
+let password = localStorage.getItem(pwKey)||"1234";
+let current="all";
+
+/* 저장 */
+function save(){
+  localStorage.setItem(key,JSON.stringify(cards));
+  localStorage.setItem(catKey,JSON.stringify(cats));
+  localStorage.setItem(pwKey,password);
+}
+
+/* 로그인 */
+function login(){
+  let p=prompt("비밀번호");
+  if(p===password){
+    document.body.classList.add("edit");
+  }else alert("틀림");
+}
+
+function logout(){
+  document.body.classList.remove("edit");
+}
+
+/* 비번 변경 */
+function changePw(){
+  let p=prompt("새 비밀번호");
+  if(p){
+    password=p;
+    save();
+    alert("변경됨");
+  }
+}
+
+/* 토글 */
+function toggle(el){
+  el.style.display=el.style.display==="block"?"none":"block";
+}
+
+/* 카테고리 */
+function renderCat(){
+  catBar.innerHTML="";
+  catSelect.innerHTML="";
+
+  let all=document.createElement("button");
+  all.innerText="전체";
+  all.onclick=()=>{current="all";render()};
+  catBar.appendChild(all);
+
+  cats.forEach(c=>{
+    let b=document.createElement("button");
+    b.innerText=c;
+    if(current===c)b.className="active";
+    b.onclick=()=>{current=c;renderCat();render()};
+    b.oncontextmenu=e=>{
+      e.preventDefault();
+      if(!document.body.classList.contains("edit"))return;
+      if(confirm("삭제?")){
+        cats=cats.filter(x=>x!==c);
+        cards.forEach(cd=>{if(cd.cat===c)cd.cat="없음"});
+        save();renderCat();render();
+      }
+    };
+    catBar.appendChild(b);
+
+    let op=document.createElement("option");
+    op.value=c;
+    op.innerText=c;
+    catSelect.appendChild(op);
+  });
+}
+
+function addCat(){
+  if(!newCat.value)return;
+  cats.push(newCat.value);
+  newCat.value="";
+  save();renderCat();
+}
+
+/* 카드 */
+function addCard(){
+  let f=file.files[0];
+  if(f){
+    let r=new FileReader();
+    r.onload=e=>pushCard(e.target.result);
+    r.readAsDataURL(f);
+  }else{
+    pushCard(img.value);
+  }
+}
+
+function pushCard(src){
+  cards.push({
+    name:name.value,
+    img:src,
+    link:link.value || "#",
+    desc:desc.value,
+    cat:catSelect.value
+  });
+  save();render();
+}
+
+/* 렌더 */
+function render(){
+  grid.innerHTML="";
+  cards.forEach((c,i)=>{
+    if(current!=="all" && c.cat!==current)return;
+
+    let d=document.createElement("div");
+    d.innerHTML=`
+    <div class="card">
+      <a href="${c.link}">
+        <img src="${c.img}">
+        <div class="overlay">${c.desc}</div>
+        <div class="text">${c.name}</div>
+      </a>
+
+      <button class="menu-btn admin" onclick="menu(event,${i})">⋯</button>
+
+      <div class="menu" id="m${i}">
+        <button onclick="del(event,${i})">삭제</button>
+      </div>
+    </div>`;
+    grid.appendChild(d);
+  });
+}
+
+/* 삭제 */
+function del(e,i){
+  e.preventDefault();
+  e.stopPropagation();
+  if(confirm("삭제할까?")){
+    cards.splice(i,1);
+    save();render();
+  }
+}
+
+/* 메뉴 */
+function menu(e,i){
+  e.preventDefault();
+  e.stopPropagation();
+  document.querySelectorAll(".menu").forEach(m=>m.style.display="none");
+  document.getElementById("m"+i).style.display="block";
+}
+
+document.addEventListener("click",()=>document.querySelectorAll(".menu").forEach(m=>m.style.display="none"));
+
+renderCat();
+render();
+</script>
+</body>
+</html>

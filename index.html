@@ -3,103 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <title>자캐 정리</title>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gaegu&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --main:#8fae8c;
-  --soft:#eef4ed;
-  --btn:#dbe9d7;
-  --box:#f8fbf7;
-  --text:#3f4f44;
-}
 body{
   margin:0;
-  background:var(--soft);
-  font-family:'Gowun Dodum','Gaegu',sans-serif;
-  color:var(--text);
-  font-size:20px;
-  padding:22px;
+  background:
+    radial-gradient(circle at 20% 20%, #f8fbf7 0 8px, transparent 9px),
+    radial-gradient(circle at 80% 30%, #e1eddd 0 7px, transparent 8px),
+    #eef4ed;
+  font-family:'Gaegu', cursive;
+  font-size:21px;
+  color:#3f4f44;
+  padding:24px;
 }
-button,input,select{
-  border:none;
-  border-radius:18px;
-  padding:9px 14px;
-  margin:5px;
-  font-family:inherit;
-  font-size:18px;
-}
-button{background:var(--btn);cursor:pointer}
-input,select{background:white}
 a{text-decoration:none;color:inherit}
-.wrap{max-width:980px;margin:auto}
-.top{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+button,input,select,textarea{
+  font-family:'Gaegu';
+  font-size:18px;
+  border:none;
+  border-radius:999px;
+  padding:10px 14px;
+  margin:5px;
+}
+button{
+  background:#dbe9d7;
+  cursor:pointer;
+}
+button:hover{background:#c9dfc3}
+.wrap{max-width:1100px;margin:auto}
+
+.top{
+  position:fixed;
+  top:16px;
+  right:16px;
+  z-index:100;
+}
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  box-shadow:0 4px 12px #0002;
+}
 .admin{display:none}
 body.edit .admin{display:inline-block}
 body.edit #loginBtn{display:none}
-.box{display:none;background:var(--box);padding:14px;margin:12px 0;border-radius:24px;text-align:center}
-.cat-bar{text-align:center;margin:12px 0}
-.cat-bar button.active{background:var(--main);color:white}
-.search{display:block;width:90%;max-width:400px;margin:12px auto;background:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
-.card{position:relative;border-radius:24px;overflow:hidden;background:white;border:1px solid #d6e2d3}
-.card img{width:100%;height:160px;object-fit:contain;display:block}
+
+.cat-bar{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:54px 0 18px;
+}
+.cat{
+  background:#dbe9d7;
+  border-radius:999px;
+}
+.cat.active{
+  background:#8fae8c;
+  color:white;
+}
+
+.box{
+  display:none;
+  background:#f8fbf7dd;
+  padding:16px;
+  margin:14px 0;
+  border-radius:28px;
+  box-shadow:0 6px 16px #0001;
+  text-align:center;
+}
+.box input,.box select{
+  background:white;
+  box-shadow:inset 0 0 0 1px #d6e2d3;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:20px;
+}
+.card{
+  position:relative;
+  border-radius:30px;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 8px 18px #0002;
+  transition:.22s;
+}
+.card:hover{transform:translateY(-4px)}
+.card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:contain;
+  display:block;
+  padding:12px;
+  box-sizing:border-box;
+}
+.text{
+  text-align:center;
+  background:#ffffffcc;
+  padding:10px;
+  font-size:24px;
+}
+.sub{
+  font-size:15px;
+  color:#6f8074;
+}
 .overlay{
-  position:absolute;inset:0;background:#0008;color:white;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  opacity:0;padding:12px;box-sizing:border-box;transition:.2s
+  position:absolute;
+  inset:0;
+  background:rgba(60,80,60,.72);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:18px;
+  box-sizing:border-box;
+  opacity:0;
+  transition:.2s;
+  pointer-events:none;
 }
 .card:hover .overlay{opacity:1}
-.text{text-align:center;background:#fff9;padding:9px;font-size:22px;font-family:'Gaegu','Gowun Dodum',sans-serif}
-.menu-btn{position:absolute;top:8px;right:8px;z-index:10}
-.menu{display:none;position:absolute;top:45px;right:8px;background:white;z-index:11;border-radius:16px;overflow:hidden}
-.color-row{display:inline-block}
+
+.menu-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:10;
+}
+.menu{
+  display:none;
+  position:absolute;
+  top:58px;
+  right:10px;
+  z-index:11;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 5px 15px #0002;
+  overflow:hidden;
+}
+.menu button{
+  display:block;
+  width:90px;
+  margin:0;
+  border-radius:0;
+}
+
+.float{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.float button{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  box-shadow:0 5px 14px #0002;
+}
+
 .popup-bg{
-  display:none;position:fixed;inset:0;background:#0008;
-  align-items:center;justify-content:center;z-index:999
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
 }
 .popup{
-  background:var(--box);padding:24px;border-radius:28px;
-  width:300px;text-align:center;white-space:pre-line
+  background:#f8fbf7;
+  width:300px;
+  padding:24px;
+  border-radius:30px;
+  text-align:center;
 }
-.popup input{width:85%}
-@media(max-width:600px){
+.popup input,.popup textarea{
+  width:88%;
+  background:white;
+}
+
+@media(max-width:699px){
   body{font-size:18px;padding:14px}
-  button,input,select{font-size:16px;padding:8px 12px}
   .grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .card img{height:135px}
-  .text{font-size:19px}
+  .card{border-radius:22px}
+  .text{font-size:20px;padding:8px}
+  .cat-bar{margin-top:60px}
 }
 </style>
 </head>
 
 <body>
-<div class="wrap">
-
 <div class="top">
-  <button id="loginBtn" onclick="login()">관리</button>
-  <button class="admin" onclick="changePw()">비밀번호 변경</button>
-  <button class="admin" onclick="toggle(themeBox)">사이트 색상</button>
-  <button class="admin" onclick="openBackup()">백업</button>
-  <button class="admin" onclick="openRestore()">불러오기</button>
-  <button class="admin" onclick="logout()">끄기</button>
-  <button onclick="copyLink()">공유 링크</button>
+  <button id="loginBtn" class="icon" onclick="login()">⚙️</button>
+  <button class="icon admin" onclick="logout()">✕</button>
 </div>
 
-<div class="box" id="themeBox">
-  사이트 색상 <input type="color" id="themeColor" value="#8fae8c">
-  <button onclick="saveTheme()">적용</button>
-</div>
+<div class="wrap">
 
 <div class="cat-bar" id="catBar"></div>
 
-<button class="admin" onclick="toggle(catBox)">+ 카테고리</button>
+<div style="text-align:center">
+  <button class="admin" onclick="toggle(catBox)">+ 카테고리</button>
+  <button class="admin" onclick="toggle(cardBox)">+ 카드</button>
+  <button class="admin" onclick="changePw()">비번 변경</button>
+</div>
+
 <div class="box" id="catBox">
   <input id="newCat" placeholder="카테고리 이름">
   <button onclick="addCat()">추가</button>
 </div>
 
-<button class="admin" onclick="toggle(cardBox)">+ 카드</button>
 <div class="box" id="cardBox">
   <input id="name" placeholder="이름">
   <input id="img" placeholder="이미지 URL">
@@ -107,33 +226,23 @@ body.edit #loginBtn{display:none}
   <input id="link" placeholder="링크">
   <input id="desc" placeholder="설명">
   <select id="catSelect"></select>
-  <select id="style" onchange="updateColorUI()">
-    <option value="auto">자동색</option>
-    <option value="basic">기본색</option>
-    <option value="grad2">2색 그라데이션</option>
-    <option value="grad3">3색 그라데이션</option>
-    <option value="grad4">4색 그라데이션</option>
-  </select>
-  <span id="colorRows">
-    <span class="color-row" id="c1row">색1 <input type="color" id="c1" value="#f4a7c0"></span>
-    <span class="color-row" id="c2row">색2 <input type="color" id="c2" value="#bfe3b4"></span>
-    <span class="color-row" id="c3row">색3 <input type="color" id="c3" value="#e8d9a4"></span>
-    <span class="color-row" id="c4row">색4 <input type="color" id="c4" value="#a4c7e8"></span>
-  </span>
   <button id="saveBtn" onclick="saveCard()">생성</button>
 </div>
 
-<input class="search" id="search" placeholder="검색..." oninput="render()">
-<input type="file" id="restoreFile" style="display:none" accept=".json" onchange="previewRestore(event)">
-
 <div class="grid" id="grid"></div>
+</div>
+
+<div class="float">
+  <button onclick="searchCard()">🔍</button>
+  <button class="admin" onclick="backup()">📦</button>
+  <button class="admin" onclick="loadData()">📂</button>
+  <button class="admin" onclick="resetAll()">🧹</button>
 </div>
 
 <div class="popup-bg" id="popupBg">
   <div class="popup">
     <div id="popupText"></div>
-    <input id="popupInput">
-    <br>
+    <textarea id="popupInput" rows="3"></textarea><br>
     <button onclick="popupOk()">확인</button>
     <button onclick="popupCancel()">취소</button>
   </div>
@@ -142,40 +251,34 @@ body.edit #loginBtn{display:none}
 <script>
 let user=new URLSearchParams(location.search).get("user");
 if(!user){
-  let nick=prompt("닉네임 입력");
-  if(!nick)nick="guest";
-  let id=Math.random().toString(36).slice(2,8);
-  location.href=location.pathname+"?user="+encodeURIComponent(nick+"_"+id);
+  let n=prompt("닉네임 입력");
+  if(!n)n="guest"+Math.floor(Math.random()*1000);
+  location.href=location.pathname+"?user="+encodeURIComponent(n);
 }
 
-const key="cards_"+user, catKey="cats_"+user, pwKey="pw_"+user, themeKey="theme_"+user;
+const key="cards_"+user, catKey="cats_"+user, pwKey="pw_"+user;
 let cards=JSON.parse(localStorage.getItem(key)||"[]");
-let cats=JSON.parse(localStorage.getItem(catKey)||"[]");
+let cats=JSON.parse(localStorage.getItem(catKey)||'["자컾","페어","드림","자캐","그 외","없음"]');
 let password=localStorage.getItem(pwKey)||"1234";
-let theme=localStorage.getItem(themeKey)||"#8fae8c";
-let current="all", editIndex=null, popupCallback=null, restoreTemp=null;
+let current="all", editIndex=null, popupCallback=null;
 
 function save(){
   localStorage.setItem(key,JSON.stringify(cards));
   localStorage.setItem(catKey,JSON.stringify(cats));
   localStorage.setItem(pwKey,password);
-  localStorage.setItem(themeKey,theme);
 }
-function applyTheme(){
-  document.documentElement.style.setProperty("--main",theme);
-  document.documentElement.style.setProperty("--btn",theme+"44");
-  document.documentElement.style.setProperty("--soft",theme+"22");
-  themeColor.value=theme;
-}
-function saveTheme(){theme=themeColor.value;save();applyTheme()}
 
-function openPopup(text,cb,type="password"){
-  popupText.innerText=text; popupInput.value=""; popupInput.type=type;
-  popupInput.style.display=type==="none"?"none":"inline-block";
-  popupBg.style.display="flex"; popupCallback=cb;
-  setTimeout(()=>{if(type!=="none")popupInput.focus()},50);
+function openPopup(text,cb){
+  popupText.innerText=text;
+  popupInput.value="";
+  popupBg.style.display="flex";
+  popupCallback=cb;
+  setTimeout(()=>popupInput.focus(),50);
 }
-function popupOk(){popupBg.style.display="none"; if(popupCallback)popupCallback(popupInput.value)}
+function popupOk(){
+  popupBg.style.display="none";
+  if(popupCallback)popupCallback(popupInput.value);
+}
 function popupCancel(){popupBg.style.display="none"}
 
 function login(){
@@ -186,197 +289,183 @@ function login(){
 }
 function logout(){
   document.body.classList.remove("edit");
-  catBox.style.display=cardBox.style.display=themeBox.style.display="none";
-  document.querySelectorAll(".menu").forEach(m=>m.style.display="none");
+  catBox.style.display="none";
+  cardBox.style.display="none";
+  closeMenus();
 }
 function changePw(){
   openPopup("기존 비밀번호",(old)=>{
-    if(old!==password){alert("기존 비밀번호가 틀렸습니다");return}
-    openPopup("새 비밀번호",(n)=>{
-      if(!n){alert("비밀번호를 입력해주세요");return}
-      openPopup("새 비밀번호 확인",(c)=>{
-        if(n!==c){alert("비밀번호가 일치하지 않습니다");return}
-        password=n;save();alert("비밀번호가 변경되었습니다");
+    if(old!==password){alert("기존 비밀번호가 틀렸습니다");return;}
+    openPopup("새 비밀번호",(nw)=>{
+      openPopup("새 비밀번호 확인",(ck)=>{
+        if(nw!==ck){alert("비밀번호가 일치하지 않습니다");return;}
+        password=nw; save(); alert("변경 완료");
       });
     });
   });
 }
-function toggle(el){if(document.body.classList.contains("edit"))el.style.display=el.style.display==="block"?"none":"block"}
+function toggle(el){
+  if(!document.body.classList.contains("edit"))return;
+  el.style.display=el.style.display==="block"?"none":"block";
+}
 
 function renderCat(){
-  catBar.innerHTML=""; catSelect.innerHTML="";
+  catBar.innerHTML="";
+  catSelect.innerHTML="";
+
   let all=document.createElement("button");
-  all.innerText="전체"; if(current==="all")all.className="active";
-  all.onclick=()=>{current="all";renderCat();render()}; catBar.appendChild(all);
+  all.innerText="전체";
+  all.className="cat"+(current==="all"?" active":"");
+  all.onclick=()=>{current="all";renderCat();render()};
+  catBar.appendChild(all);
 
   cats.forEach(c=>{
     let b=document.createElement("button");
-    b.innerText=c; if(current===c)b.className="active";
+    b.innerText=c;
+    b.className="cat"+(current===c?" active":"");
     b.onclick=()=>{current=c;renderCat();render()};
     b.oncontextmenu=e=>{
       e.preventDefault();
       if(!document.body.classList.contains("edit"))return;
       if(confirm("정말 이 카테고리를 삭제하시겠습니까?")){
         cats=cats.filter(x=>x!==c);
+        if(!cats.includes("없음"))cats.push("없음");
         cards.forEach(card=>{if(card.cat===c)card.cat="없음"});
         save();renderCat();render();
       }
     };
     catBar.appendChild(b);
-    let op=document.createElement("option"); op.value=c; op.innerText=c; catSelect.appendChild(op);
+
+    let op=document.createElement("option");
+    op.value=c; op.innerText=c;
+    catSelect.appendChild(op);
   });
 }
-function addCat(){
-  if(!document.body.classList.contains("edit"))return;
-  let v=newCat.value.trim(); if(!v)return;
-  cats.push(v); newCat.value=""; save(); renderCat();
-}
 
-function updateColorUI(){
-  c1row.style.display=c2row.style.display=c3row.style.display=c4row.style.display="none";
-  if(style.value==="basic")c1row.style.display="inline-block";
-  if(style.value==="grad2")c1row.style.display=c2row.style.display="inline-block";
-  if(style.value==="grad3")c1row.style.display=c2row.style.display=c3row.style.display="inline-block";
-  if(style.value==="grad4")c1row.style.display=c2row.style.display=c3row.style.display=c4row.style.display="inline-block";
-}
-function bg(style,colors,auto){
-  if(style==="auto")return auto||"#ffffff";
-  if(style==="basic")return colors[0];
-  if(style==="grad2")return `linear-gradient(135deg,${colors[0]},${colors[1]})`;
-  if(style==="grad3")return `linear-gradient(135deg,${colors[0]},${colors[1]},${colors[2]})`;
-  if(style==="grad4")return `linear-gradient(135deg,${colors[0]},${colors[1]},${colors[2]},${colors[3]})`;
-  return "#ffffff";
-}
-function extractColor(src,cb){
-  let im=new Image(); im.crossOrigin="Anonymous";
-  im.onload=()=>{
-    try{
-      let cv=document.createElement("canvas"),x=cv.getContext("2d");
-      cv.width=cv.height=40; x.drawImage(im,0,0,40,40);
-      let d=x.getImageData(0,0,40,40).data,r=0,g=0,b=0,n=0;
-      for(let i=0;i<d.length;i+=16){r+=d[i];g+=d[i+1];b+=d[i+2];n++}
-      r=Math.round(r/n);g=Math.round(g/n);b=Math.round(b/n);
-      cb(`linear-gradient(135deg, rgb(${r},${g},${b}), ${theme}55)`);
-    }catch{cb(theme+"33")}
-  };
-  im.onerror=()=>cb(theme+"33");
-  im.src=src;
+function addCat(){
+  let v=newCat.value.trim();
+  if(!v)return;
+  if(!cats.includes(v))cats.push(v);
+  newCat.value="";
+  save();renderCat();
 }
 
 function saveCard(){
   if(!document.body.classList.contains("edit"))return;
   let f=file.files[0];
-  if(f){let r=new FileReader(); r.onload=e=>makeCard(e.target.result); r.readAsDataURL(f)}
-  else makeCard(img.value);
-}
-function makeCard(src){
-  let data={
-    name:name.value||"이름없음", img:src||"", link:link.value||"#", desc:desc.value||"",
-    cat:catSelect.value||"없음", style:style.value,
-    colors:[c1.value,c2.value,c3.value,c4.value], autoBg:theme+"33"
-  };
-  let finish=()=>{ if(editIndex===null)cards.push(data); else{cards[editIndex]=data;editIndex=null;saveBtn.innerText="생성"}; save(); clearForm(); render(); };
-  if(data.style==="auto"&&data.img)extractColor(data.img,c=>{data.autoBg=c;finish()});
-  else finish();
-}
-function clearForm(){
-  name.value=img.value=link.value=desc.value=""; file.value=""; style.value="auto"; updateColorUI();
+  if(f){
+    let r=new FileReader();
+    r.onload=e=>pushCard(e.target.result);
+    r.readAsDataURL(f);
+  }else pushCard(img.value);
 }
 
-function render(){
+function pushCard(src){
+  let obj={
+    name:name.value.trim() || "이름 없음",
+    img:src || "",
+    link:link.value || "#",
+    desc:desc.value || "",
+    cat:catSelect.value || "없음",
+    date: editIndex===null ? Date.now() : cards[editIndex].date
+  };
+  if(editIndex===null)cards.push(obj);
+  else{cards[editIndex]=obj; editIndex=null; saveBtn.innerText="생성";}
+  clearForm(); save(); render();
+}
+
+function clearForm(){
+  name.value=""; img.value=""; link.value=""; desc.value=""; file.value="";
+}
+
+function render(list=cards){
   grid.innerHTML="";
-  let kw=(search.value||"").toLowerCase();
-  cards.forEach((c,i)=>{
+  [...list].sort((a,b)=>b.date-a.date).forEach((c)=>{
+    let realIndex=cards.indexOf(c);
     if(current!=="all"&&c.cat!==current)return;
-    if(kw&&!((c.name||"").toLowerCase().includes(kw)||(c.desc||"").toLowerCase().includes(kw)))return;
     let d=document.createElement("div");
     d.innerHTML=`
-    <div class="card" style="background:${bg(c.style,c.colors||[],c.autoBg)}">
-      <a href="${c.link||"#"}">
-        <img src="${c.img||""}">
-        <div class="overlay">${c.desc||""}</div>
-        <div class="text">${c.name||"이름없음"}</div>
+    <div class="card">
+      <a href="${c.link}">
+        <img src="${c.img}">
+        <div class="overlay">${c.desc}</div>
+        <div class="text">${c.name}<div class="sub">${c.cat||"없음"}</div></div>
       </a>
-      <button class="menu-btn admin" onclick="menu(event,${i})">⋯</button>
-      <div class="menu" id="m${i}">
-        <button onclick="editCard(event,${i})">수정</button>
-        <button onclick="del(event,${i})">삭제</button>
+      <button class="menu-btn admin" onclick="menu(event,${realIndex})">⋯</button>
+      <div class="menu" id="m${realIndex}">
+        <button onclick="editCard(event,${realIndex})">수정</button>
+        <button onclick="del(event,${realIndex})">삭제</button>
       </div>
     </div>`;
     grid.appendChild(d);
   });
 }
+
 function editCard(e,i){
   e.preventDefault(); e.stopPropagation();
   let c=cards[i]; editIndex=i;
-  name.value=c.name||""; img.value=c.img||""; link.value=c.link||""; desc.value=c.desc||"";
-  catSelect.value=c.cat||""; style.value=c.style||"auto";
-  let cs=c.colors||["#f4a7c0","#bfe3b4","#e8d9a4","#a4c7e8"];
-  c1.value=cs[0]||"#f4a7c0"; c2.value=cs[1]||"#bfe3b4"; c3.value=cs[2]||"#e8d9a4"; c4.value=cs[3]||"#a4c7e8";
-  updateColorUI(); saveBtn.innerText="수정"; cardBox.style.display="block";
+  cardBox.style.display="block";
+  name.value=c.name; img.value=c.img; link.value=c.link; desc.value=c.desc; catSelect.value=c.cat;
+  saveBtn.innerText="수정";
+  closeMenus();
 }
+
 function del(e,i){
   e.preventDefault(); e.stopPropagation();
   if(!document.body.classList.contains("edit"))return;
-  if(confirm("정말 삭제할까?")){cards.splice(i,1);save();render()}
+  if(confirm("정말 삭제할까?")){
+    cards.splice(i,1); save(); render();
+  }
 }
+
 function menu(e,i){
   e.preventDefault(); e.stopPropagation();
   if(!document.body.classList.contains("edit"))return;
-  document.querySelectorAll(".menu").forEach(m=>m.style.display="none");
+  closeMenus();
   document.getElementById("m"+i).style.display="block";
 }
+function closeMenus(){document.querySelectorAll(".menu").forEach(m=>m.style.display="none")}
 
-function copyLink(){
-  navigator.clipboard.writeText(location.href);
-  alert("공유 링크가 복사되었습니다");
+function searchCard(){
+  openPopup("검색어 입력",(w)=>{
+    if(!w){render();return;}
+    render(cards.filter(c=>(c.name+c.desc+c.cat).includes(w)));
+  });
 }
-function today(){
-  let d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
+function backup(){
+  let data=JSON.stringify({cards,cats,password});
+  navigator.clipboard.writeText(data);
+  alert("백업 데이터가 복사되었습니다");
 }
-function openBackup(){
-  openPopup("현재 카드, 카테고리, 비밀번호, 테마를 백업 파일로 저장합니다.\n계속할까요?",backupData,"none");
-}
-function backupData(){
-  let data={cards,cats,password,theme,user,backupDate:new Date().toISOString()};
-  let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-  let a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download=`oc-archive-${user}-${today()}.json`;
-  a.click();
-}
-function openRestore(){
-  openPopup("백업 파일을 불러오면 현재 데이터가 덮어써집니다.\n먼저 파일 내용을 미리보기로 확인합니다.",()=>restoreFile.click(),"none");
-}
-function previewRestore(e){
-  let f=e.target.files[0]; if(!f)return;
-  let r=new FileReader();
-  r.onload=ev=>{
+
+function loadData(){
+  openPopup("백업 데이터를 붙여넣기",(txt)=>{
     try{
-      restoreTemp=JSON.parse(ev.target.result);
-      let msg=`복원 미리보기\n\n카드: ${(restoreTemp.cards||[]).length}개\n카테고리: ${(restoreTemp.cats||[]).length}개\n백업 날짜: ${restoreTemp.backupDate||"없음"}\n\n이 데이터로 복원할까요?`;
-      openPopup(msg,confirmRestore,"none");
-    }catch{alert("백업 파일이 아닌 것 같아")}
-  };
-  r.readAsText(f);
-}
-function confirmRestore(){
-  if(!restoreTemp)return;
-  cards=restoreTemp.cards||[];
-  cats=restoreTemp.cats||[];
-  password=restoreTemp.password||password;
-  theme=restoreTemp.theme||theme;
-  save(); applyTheme(); renderCat(); render();
-  alert("복원 완료!");
+      let d=JSON.parse(txt);
+      cards=d.cards||[];
+      cats=d.cats||cats;
+      password=d.password||password;
+      save(); renderCat(); render();
+      alert("불러오기 완료");
+    }catch(e){alert("데이터 형식이 이상합니다");}
+  });
 }
 
-document.addEventListener("click",()=>document.querySelectorAll(".menu").forEach(m=>m.style.display="none"));
+function resetAll(){
+  if(confirm("정말 완전 초기화할까?")){
+    localStorage.removeItem(key);
+    localStorage.removeItem(catKey);
+    localStorage.removeItem(pwKey);
+    location.reload();
+  }
+}
 
-applyTheme();
-updateColorUI();
+document.addEventListener("click",closeMenus);
+
 renderCat();
 render();
 </script>
 </body>
+</html>
 </html>

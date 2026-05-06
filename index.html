@@ -74,6 +74,11 @@ button{
   gap:8px;
 }
 
+.left-top{
+  left:16px;
+  right:auto;
+}
+
 .icon{
   width:46px;
   height:46px;
@@ -104,6 +109,11 @@ button{
   opacity:0;
   pointer-events:none;
   box-shadow:0 4px 12px #0001;
+}
+
+.left-top .icon::after{
+  left:54px;
+  right:auto;
 }
 
 .icon:hover::after{opacity:1}
@@ -168,7 +178,22 @@ body.viewonly .admin{display:none!important}
   box-shadow:inset 0 0 0 1px var(--line);
 }
 
-.color-row{display:inline-block}
+input[type="color"]{
+  width:52px!important;
+  height:52px!important;
+  padding:4px!important;
+  border-radius:14px!important;
+  border:none!important;
+  background:#fff!important;
+  box-shadow:0 2px 8px #0001!important;
+  vertical-align:middle;
+}
+
+.color-row,
+.skin-color-row{
+  display:inline-block;
+  margin:4px;
+}
 
 .grid{
   display:grid;
@@ -340,9 +365,13 @@ body.viewonly .admin{display:none!important}
 
 <body>
 
+<div class="top left-top">
+  <button class="icon admin" data-tip="초기화" onclick="resetAll()">↺</button>
+</div>
+
 <div class="top">
   <button id="loginBtn" class="icon" data-tip="관리자 모드" onclick="login()">☰</button>
-  <button class="icon admin" data-tip="스킨 설정" onclick="toggle(skinBox)">✿</button>
+  <button class="icon admin" data-tip="스킨 / 설정" onclick="toggle(skinBox)">✿</button>
   <button class="icon admin" data-tip="관리자 모드 끄기" onclick="logout()">×</button>
 </div>
 
@@ -355,9 +384,6 @@ body.viewonly .admin{display:none!important}
   <div class="center-btns">
     <button class="soft-btn admin" onclick="toggle(catBox)">+ 카테고리</button>
     <button class="soft-btn admin" onclick="toggle(cardBox)">+ 카드</button>
-    <button class="soft-btn admin" onclick="changePw()">비밀번호 변경</button>
-    <button class="soft-btn admin" onclick="copyOwnerLink()">내 링크 복사</button>
-    <button class="soft-btn admin" onclick="copyShareLink()">공유 링크 복사</button>
   </div>
 
   <div class="box" id="skinBox">
@@ -365,6 +391,7 @@ body.viewonly .admin{display:none!important}
       <option value="preset">기본 스킨</option>
       <option value="solid">단색</option>
       <option value="gradient">사용자 지정 그라데이션</option>
+      <option value="check">체크무늬</option>
     </select>
 
     <select id="themeSelect">
@@ -374,11 +401,17 @@ body.viewonly .admin{display:none!important}
       <option value="purple">보라</option>
     </select>
 
-    <span id="skinColor1">색1 <input type="color" id="themeC1" value="#edf6ea"></span>
-    <span id="skinColor2">색2 <input type="color" id="themeC2" value="#dfeedd"></span>
-    <span id="skinColor3">색3 <input type="color" id="themeC3" value="#edf7f0"></span>
+    <span id="skinColor1" class="skin-color-row">색1 <input type="color" id="themeC1" value="#edf6ea"></span>
+    <span id="skinColor2" class="skin-color-row">색2 <input type="color" id="themeC2" value="#dfeedd"></span>
+    <span id="skinColor3" class="skin-color-row">색3 <input type="color" id="themeC3" value="#edf7f0"></span>
 
     <button class="soft-btn" onclick="saveSkin()">적용</button>
+
+    <hr style="margin:16px 0;border:none;border-top:1px solid var(--line)">
+
+    <button class="soft-btn" onclick="changePw()">비밀번호 변경</button>
+    <button class="soft-btn" onclick="copyOwnerLink()">관리자용 링크 복사</button>
+    <button class="soft-btn" onclick="copyShareLink()">보기용 링크 복사</button>
   </div>
 
   <div class="box" id="catBox">
@@ -398,6 +431,11 @@ body.viewonly .admin{display:none!important}
     <input id="descInput" placeholder="마우스 올렸을 때 설명">
 
     <select id="catSelect"></select>
+
+    <select id="fitSelect">
+      <option value="contain">사진 기본 비율</option>
+      <option value="cover">카드에 꽉 채우기</option>
+    </select>
 
     <select id="styleSelect" onchange="updateColorUI()">
       <option value="auto">자동색</option>
@@ -427,7 +465,6 @@ body.viewonly .admin{display:none!important}
   <button class="icon" data-tip="검색" onclick="searchCard()">⌕</button>
   <button class="icon admin" data-tip="백업" onclick="backup()">□</button>
   <button class="icon admin" data-tip="불러오기" onclick="loadData()">⇧</button>
-  <button class="icon admin" data-tip="초기화" onclick="resetAll()">↺</button>
 </div>
 
 <div class="popup-bg" id="popupBg">
@@ -654,6 +691,7 @@ function pushCard(src){
     name:nameInput.value.trim()||"이름 없음",
     mini:miniInput.value.trim()||"",
     img:src||"",
+    fit:fitSelect.value||"contain",
     link:linkInput.value||"#",
     desc:descInput.value||"",
     cat:catSelect.value||"",
@@ -682,6 +720,7 @@ function clearForm(){
   linkInput.value="";
   descInput.value="";
   fileInput.value="";
+  fitSelect.value="contain";
   styleSelect.value="auto";
   updateColorUI();
 }
@@ -710,7 +749,7 @@ function render(list=cards){
     wrap.innerHTML=`
       <div class="card" style="background:${getBg(c)}">
         <a href="${c.link||"#"}">
-          <img src="${c.img||""}">
+          <img src="${c.img||""}" style="object-fit:${c.fit||'contain'}">
           <div class="overlay">${c.desc||""}</div>
           <div class="text">
             ${c.name||"이름 없음"}
@@ -744,6 +783,7 @@ function editCard(e,i){
   imgInput.value=c.img||"";
   linkInput.value=c.link||"";
   descInput.value=c.desc||"";
+  fitSelect.value=c.fit||"contain";
   catSelect.value=c.cat||"";
   styleSelect.value=c.style||"auto";
 
@@ -836,7 +876,8 @@ function resetAll(){
 function updateSkinUI(){
   let type=skinType.value;
   themeSelect.style.display= type==="preset" ? "inline-block" : "none";
-  skinColor1.style.display= type==="preset" ? "none" : "inline-block";
+
+  skinColor1.style.display= type==="solid" || type==="gradient" ? "inline-block" : "none";
   skinColor2.style.display= type==="gradient" ? "inline-block" : "none";
   skinColor3.style.display= type==="gradient" ? "inline-block" : "none";
 }
@@ -858,7 +899,7 @@ function applySkin(data){
 
   let root=document.documentElement;
 
-  let set=(bg1,bg2,bg3,dot1,dot2,main,soft,box,line)=>{
+  function setVars(bg1,bg2,bg3,dot1,dot2,main,soft,box,line){
     root.style.setProperty("--bg1",bg1);
     root.style.setProperty("--bg2",bg2);
     root.style.setProperty("--bg3",bg3);
@@ -868,35 +909,66 @@ function applySkin(data){
     root.style.setProperty("--soft",soft);
     root.style.setProperty("--box",box);
     root.style.setProperty("--line",line);
-  };
+
+    document.body.style.background =
+      `radial-gradient(circle at 18px 18px,var(--dot1) 2px,transparent 3px),
+       radial-gradient(circle at 58px 58px,var(--dot2) 3px,transparent 4px),
+       linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3))`;
+
+    document.body.style.backgroundSize="76px 76px,76px 76px,100% 100%";
+    document.body.style.backgroundAttachment="fixed";
+  }
 
   if(data.type==="solid"){
-    set(data.c1,data.c1,data.c1,data.c1,"#ffffff",data.c1,data.c1,"#ffffff",data.c1);
+    root.style.setProperty("--main",data.c1);
+    root.style.setProperty("--soft",data.c1+"55");
+    root.style.setProperty("--box","#ffffff");
+    root.style.setProperty("--line",data.c1);
+    document.body.style.background=data.c1;
   }
   else if(data.type==="gradient"){
-    set(data.c1,data.c2,data.c3,data.c2,"#ffffff",data.c2,data.c1,"#ffffff",data.c2);
+    root.style.setProperty("--main",data.c2);
+    root.style.setProperty("--soft",data.c1+"66");
+    root.style.setProperty("--box","#ffffff");
+    root.style.setProperty("--line",data.c2);
+    document.body.style.background=`linear-gradient(135deg,${data.c1},${data.c2},${data.c3})`;
+    document.body.style.backgroundAttachment="fixed";
+  }
+  else if(data.type==="check"){
+    root.style.setProperty("--main","#b59b7b");
+    root.style.setProperty("--soft","#f1ded0");
+    root.style.setProperty("--box","#fffaf5");
+    root.style.setProperty("--line","#e3c8b1");
+    document.body.style.background=
+      `linear-gradient(45deg,#f7efe7 25%,transparent 25%),
+       linear-gradient(-45deg,#f7efe7 25%,transparent 25%),
+       linear-gradient(45deg,transparent 75%,#f7efe7 75%),
+       linear-gradient(-45deg,transparent 75%,#f7efe7 75%),
+       #fff9f4`;
+    document.body.style.backgroundSize="40px 40px";
+    document.body.style.backgroundPosition="0 0,0 20px,20px -20px,-20px 0px";
   }
   else{
-    if(data.preset==="pink")set("#fff1f5","#ffe4ec","#fff7fa","#ffdbe7","#fff6fa","#e7a3b8","#f4d5dd","#fff8fb","#e8c4cf");
-    else if(data.preset==="blue")set("#eef7ff","#ddefff","#f6fbff","#d9ecff","#f6fbff","#8baecd","#d9eafd","#f8fcff","#c6dcef");
-    else if(data.preset==="purple")set("#f5efff","#ece4ff","#faf7ff","#e7ddff","#faf7ff","#a899c9","#e1d8f5","#fbf8ff","#d6cbe8");
-    else set("#edf6ea","#dfeedd","#edf7f0","#dfeadd","#f7fbf6","#8fae8c","#dbe9d7","#f8fbf7","#c9dcc5");
+    if(data.preset==="pink")setVars("#fff1f5","#ffe4ec","#fff7fa","#ffdbe7","#fff6fa","#e7a3b8","#f4d5dd","#fff8fb","#e8c4cf");
+    else if(data.preset==="blue")setVars("#eef7ff","#ddefff","#f6fbff","#d9ecff","#f6fbff","#8baecd","#d9eafd","#f8fcff","#c6dcef");
+    else if(data.preset==="purple")setVars("#f5efff","#ece4ff","#faf7ff","#e7ddff","#faf7ff","#a899c9","#e1d8f5","#fbf8ff","#d6cbe8");
+    else setVars("#edf6ea","#dfeedd","#edf7f0","#dfeadd","#f7fbf6","#8fae8c","#dbe9d7","#f8fbf7","#c9dcc5");
   }
 }
 
 function copyOwnerLink(){
   let url=location.origin+location.pathname+"?user="+encodeURIComponent(user);
-  navigator.clipboard.writeText(url).then(()=>alert("내 링크가 복사되었습니다."));
+  navigator.clipboard.writeText(url).then(()=>alert("관리자용 링크가 복사되었습니다."));
 }
 
 function copyShareLink(){
   let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&view=1";
-  navigator.clipboard.writeText(url).then(()=>alert("보기 전용 공유 링크가 복사되었습니다."));
+  navigator.clipboard.writeText(url).then(()=>alert("보기용 링크가 복사되었습니다."));
 }
 
 function renderTitle(){
   title.innerText=(nickname||"나")+"의 아카이브";
-  notice.innerText=isViewOnly ? "보기 전용 페이지입니다." : "내 링크를 꼭 저장해 주세요. 공유할 때는 보기 전용 링크를 사용해 주세요.";
+  notice.innerText=isViewOnly ? "보기 전용 페이지입니다." : "관리자용 링크를 꼭 저장해 주세요. 공유할 때는 보기용 링크를 사용해 주세요.";
 }
 
 document.addEventListener("click",e=>{

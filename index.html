@@ -7,20 +7,12 @@
 
 <style>
 *{box-sizing:border-box}
-
 :root{
-  --bg1:#edf6ea;
-  --bg2:#dfeedd;
-  --bg3:#edf7f0;
-  --dot1:#dfeadd;
-  --dot2:#f7fbf6;
-  --main:#8fae8c;
-  --soft:#dbe9d7;
-  --box:#f8fbf7;
-  --text:#3f4f44;
-  --line:#c9dcc5;
+  --bg1:#edf6ea; --bg2:#dfeedd; --bg3:#edf7f0;
+  --dot1:#dfeadd; --dot2:#f7fbf6;
+  --main:#8fae8c; --soft:#dbe9d7; --box:#f8fbf7;
+  --text:#3f4f44; --line:#c9dcc5;
 }
-
 body{
   margin:0;
   padding:24px;
@@ -33,23 +25,10 @@ body{
   background-size:76px 76px,76px 76px,100% 100%;
   background-attachment:fixed;
 }
-
 a{text-decoration:none;color:inherit}
-
-button,input,select{
-  font-family:'Gowun Dodum',sans-serif;
-  font-size:16px;
-}
-
-button{
-  border:none;
-  cursor:pointer;
-  background:transparent;
-  color:var(--text);
-}
-
+button,input,select{font-family:'Gowun Dodum',sans-serif;font-size:16px}
+button{border:none;cursor:pointer;background:transparent;color:var(--text)}
 .wrap{max-width:1120px;margin:auto}
-
 .title{
   text-align:center;
   font-family:'Gaegu',cursive;
@@ -57,14 +36,7 @@ button{
   font-weight:700;
   margin:56px 0 10px;
 }
-
-.notice{
-  text-align:center;
-  font-size:14px;
-  color:#6f8074;
-  margin-bottom:14px;
-}
-
+.notice{text-align:center;font-size:14px;color:#6f8074;margin-bottom:14px}
 .top{
   position:fixed;
   top:16px;
@@ -73,15 +45,9 @@ button{
   display:flex;
   gap:8px;
 }
-
-.left-top{
-  left:16px;
-  right:auto;
-}
-
+.left-top{left:16px;right:auto}
 .icon{
-  width:46px;
-  height:46px;
+  width:46px;height:46px;
   border:2px solid var(--main);
   border-radius:50%;
   background:#ffffff99;
@@ -92,9 +58,7 @@ button{
   justify-content:center;
   position:relative;
 }
-
 .icon:hover{background:#ffffffdd}
-
 .icon::after{
   content:attr(data-tip);
   position:absolute;
@@ -110,20 +74,10 @@ button{
   pointer-events:none;
   box-shadow:0 4px 12px #0001;
 }
-
-.left-top .icon::after{
-  left:54px;
-  right:auto;
-}
-
+.left-top .icon::after{left:54px;right:auto}
 .icon:hover::after{opacity:1}
-
-.admin{display:none}
-body.edit .admin{display:inline-flex}
-body.edit #loginBtn{display:none}
-body.viewonly #loginBtn,
-body.viewonly .admin{display:none!important}
-
+.owner{display:inline-flex}
+body.viewonly .owner{display:none!important}
 .cat-bar{
   display:flex;
   flex-wrap:wrap;
@@ -131,22 +85,14 @@ body.viewonly .admin{display:none!important}
   gap:8px;
   margin:18px 0;
 }
-
 .cat{
   padding:8px 16px;
   border-radius:999px;
   background:var(--soft);
 }
-
-.cat.active{
-  background:var(--main);
-  color:#fff;
-}
-
+.cat.active{background:var(--main);color:#fff}
 .cat[draggable="true"]{cursor:grab}
-
 .center-btns{text-align:center;margin-bottom:14px}
-
 .soft-btn{
   background:var(--box);
   border:1px solid var(--line);
@@ -154,9 +100,7 @@ body.viewonly .admin{display:none!important}
   padding:10px 16px;
   margin:5px;
 }
-
 .soft-btn:hover{background:var(--soft)}
-
 .box{
   display:none;
   background:#ffffffcc;
@@ -167,7 +111,6 @@ body.viewonly .admin{display:none!important}
   text-align:center;
   box-shadow:0 8px 18px #0001;
 }
-
 .box input,.box select{
   border:none;
   background:#fff;
@@ -177,32 +120,23 @@ body.viewonly .admin{display:none!important}
   width:220px;
   box-shadow:inset 0 0 0 1px var(--line);
 }
-
 input[type="color"]{
-  width:52px!important;
-  height:52px!important;
+  width:54px!important;
+  height:54px!important;
   padding:4px!important;
-  border-radius:14px!important;
+  border-radius:12px!important;
   border:none!important;
   background:#fff!important;
-  box-shadow:0 2px 8px #0001!important;
+  box-shadow:0 2px 8px #0002!important;
   vertical-align:middle;
 }
-
-.color-row,
-.skin-color-row{
-  display:inline-block;
-  margin:4px;
-}
-
+.color-row,.skin-color-row{display:inline-block;margin:4px}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
   gap:18px;
 }
-
 .card-wrap[draggable="true"]{cursor:grab}
-
 .card{
   position:relative;
   border-radius:30px;
@@ -211,17 +145,17 @@ input[type="color"]{
   box-shadow:0 8px 18px #0002;
   transition:.2s;
 }
-
 .card:hover{transform:translateY(-4px)}
-
 .card img{
   width:100%;
-  aspect-ratio:1/1;
+  display:block;
   object-fit:contain;
   padding:12px;
-  display:block;
 }
-
+.card.fit-cover img{object-fit:cover;padding:0}
+.card.ratio-square img{aspect-ratio:1/1}
+.card.ratio-portrait img{aspect-ratio:3/4}
+.card.ratio-landscape img{aspect-ratio:4/3}
 .text{
   text-align:center;
   background:#ffffffcc;
@@ -230,7 +164,6 @@ input[type="color"]{
   font-size:28px;
   font-weight:700;
 }
-
 .mini{
   font-family:'Gowun Dodum',sans-serif;
   font-size:15px;
@@ -238,7 +171,6 @@ input[type="color"]{
   font-weight:400;
   margin-top:3px;
 }
-
 .sub{
   font-family:'Gowun Dodum',sans-serif;
   font-size:14px;
@@ -246,7 +178,6 @@ input[type="color"]{
   font-weight:400;
   margin-top:3px;
 }
-
 .overlay{
   position:absolute;
   inset:0;
@@ -261,16 +192,8 @@ input[type="color"]{
   pointer-events:none;
   transition:.2s;
 }
-
 .card:hover .overlay{opacity:1}
-
-.menu-btn{
-  position:absolute;
-  top:10px;
-  right:10px;
-  z-index:10;
-}
-
+.menu-btn{position:absolute;top:10px;right:10px;z-index:10}
 .menu{
   display:none;
   position:absolute;
@@ -282,15 +205,8 @@ input[type="color"]{
   overflow:hidden;
   box-shadow:0 5px 14px #0002;
 }
-
-.menu button{
-  display:block;
-  width:90px;
-  padding:10px;
-}
-
+.menu button{display:block;width:90px;padding:10px}
 .menu button:hover{background:var(--soft)}
-
 .float{
   position:fixed;
   right:18px;
@@ -300,7 +216,6 @@ input[type="color"]{
   flex-direction:column;
   gap:9px;
 }
-
 .popup-bg{
   display:none;
   position:fixed;
@@ -310,7 +225,6 @@ input[type="color"]{
   justify-content:center;
   z-index:999;
 }
-
 .popup{
   width:320px;
   background:var(--box);
@@ -319,7 +233,6 @@ input[type="color"]{
   text-align:center;
   box-shadow:0 8px 20px #0003;
 }
-
 .popup-title{
   font-family:'Gaegu',cursive;
   font-size:28px;
@@ -327,7 +240,6 @@ input[type="color"]{
   margin-bottom:12px;
   white-space:pre-line;
 }
-
 .popup input{
   width:90%;
   border:none;
@@ -336,18 +248,15 @@ input[type="color"]{
   background:#fff;
   box-shadow:inset 0 0 0 1px var(--line);
 }
-
 .popup button{
   background:var(--soft);
   border-radius:14px;
   padding:10px 14px;
   margin:12px 4px 0;
 }
-
 @media(min-width:900px){
   .grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
 }
-
 @media(max-width:699px){
   body{padding:14px}
   .title{font-size:34px;margin-top:58px}
@@ -366,13 +275,11 @@ input[type="color"]{
 <body>
 
 <div class="top left-top">
-  <button class="icon admin" data-tip="초기화" onclick="resetAll()">↺</button>
+  <button class="icon owner" data-tip="초기화" onclick="resetAll()">↺</button>
 </div>
 
 <div class="top">
-  <button id="loginBtn" class="icon" data-tip="관리자 모드" onclick="login()">☰</button>
-  <button class="icon admin" data-tip="스킨 / 설정" onclick="toggle(skinBox)">✿</button>
-  <button class="icon admin" data-tip="관리자 모드 끄기" onclick="logout()">×</button>
+  <button class="icon owner" data-tip="설정" onclick="toggle(settingsBox)">☰</button>
 </div>
 
 <div class="wrap">
@@ -381,9 +288,30 @@ input[type="color"]{
 
   <div class="cat-bar" id="catBar"></div>
 
-  <div class="center-btns">
-    <button class="soft-btn admin" onclick="toggle(catBox)">+ 카테고리</button>
-    <button class="soft-btn admin" onclick="toggle(cardBox)">+ 카드</button>
+  <div class="center-btns owner">
+    <button class="soft-btn" onclick="toggle(catBox)">+ 카테고리</button>
+    <button class="soft-btn" onclick="toggle(cardBox)">+ 카드</button>
+    <button class="soft-btn" onclick="sortCards('manual')">직접정렬</button>
+    <button class="soft-btn" onclick="sortCards('name')">이름순</button>
+    <button class="soft-btn" onclick="sortCards('latest')">최신순</button>
+  </div>
+
+  <div class="box" id="settingsBox">
+    <button class="soft-btn" onclick="toggle(nameBox)">이름 변경</button>
+    <button class="soft-btn" onclick="toggle(skinBox)">스킨 설정</button>
+    <button class="soft-btn" onclick="toggle(linkBox)">링크</button>
+    <button class="soft-btn" onclick="backup()">백업</button>
+    <button class="soft-btn" onclick="loadData()">불러오기</button>
+  </div>
+
+  <div class="box" id="nameBox">
+    <input id="nicknameInput" placeholder="새 이름">
+    <button class="soft-btn" onclick="changeName()">변경</button>
+  </div>
+
+  <div class="box" id="linkBox">
+    <button class="soft-btn" onclick="copyOwnerLink()">관리자용 링크 복사</button>
+    <button class="soft-btn" onclick="copyShareLink()">보기용 링크 복사</button>
   </div>
 
   <div class="box" id="skinBox">
@@ -401,24 +329,25 @@ input[type="color"]{
       <option value="purple">보라</option>
     </select>
 
+    <select id="checkSelect">
+      <option value="beige">베이지 체크</option>
+      <option value="green">초록 체크</option>
+      <option value="pink">핑크 체크</option>
+      <option value="blue">파랑 체크</option>
+    </select>
+
     <span id="skinColor1" class="skin-color-row">색1 <input type="color" id="themeC1" value="#edf6ea"></span>
     <span id="skinColor2" class="skin-color-row">색2 <input type="color" id="themeC2" value="#dfeedd"></span>
     <span id="skinColor3" class="skin-color-row">색3 <input type="color" id="themeC3" value="#edf7f0"></span>
 
     <button class="soft-btn" onclick="saveSkin()">적용</button>
-
-    <hr style="margin:16px 0;border:none;border-top:1px solid var(--line)">
-
-    <button class="soft-btn" onclick="changePw()">비밀번호 변경</button>
-    <button class="soft-btn" onclick="copyOwnerLink()">관리자용 링크 복사</button>
-    <button class="soft-btn" onclick="copyShareLink()">보기용 링크 복사</button>
   </div>
 
   <div class="box" id="catBox">
     <input id="newCat" placeholder="카테고리 이름">
     <button class="soft-btn" onclick="addCat()">추가</button>
     <div style="font-size:13px;color:#7b8b7d;margin-top:6px;">
-      관리자 모드에서 카테고리 버튼을 드래그하면 정렬됩니다. 우클릭하면 삭제됩니다.
+      카테고리 버튼을 드래그하면 정렬됩니다. 우클릭하면 삭제됩니다.
     </div>
   </div>
 
@@ -435,6 +364,12 @@ input[type="color"]{
     <select id="fitSelect">
       <option value="contain">사진 기본 비율</option>
       <option value="cover">카드에 꽉 채우기</option>
+    </select>
+
+    <select id="ratioSelect">
+      <option value="square">정사각형</option>
+      <option value="portrait">세로형</option>
+      <option value="landscape">가로형</option>
     </select>
 
     <select id="styleSelect" onchange="updateColorUI()">
@@ -454,7 +389,7 @@ input[type="color"]{
 
     <button id="saveBtn" class="soft-btn" onclick="saveCard()">생성</button>
     <div style="font-size:13px;color:#7b8b7d;">
-      관리자 모드에서 카드를 드래그하면 정렬됩니다.
+      카드를 드래그하면 순서를 바꿀 수 있습니다.
     </div>
   </div>
 
@@ -463,8 +398,6 @@ input[type="color"]{
 
 <div class="float">
   <button class="icon" data-tip="검색" onclick="searchCard()">⌕</button>
-  <button class="icon admin" data-tip="백업" onclick="backup()">□</button>
-  <button class="icon admin" data-tip="불러오기" onclick="loadData()">⇧</button>
 </div>
 
 <div class="popup-bg" id="popupBg">
@@ -483,6 +416,11 @@ let params=new URLSearchParams(location.search);
 let user=params.get("user");
 let isViewOnly=params.get("view")==="1";
 let popupCallback=null;
+let current="all";
+let editIndex=null;
+let dragCardIndex=null;
+let dragCatIndex=null;
+let sortMode="manual";
 
 function makeID(){
   return Math.random().toString(36).substring(2,10)+Date.now().toString(36).slice(-4);
@@ -508,73 +446,48 @@ function popupCancel(){
 
 if(!user){
   setTimeout(()=>{
-    openPopup("닉네임 입력\n\n링크를 꼭 저장하거나 백업해 주세요.",(nickname)=>{
+    openPopup("닉네임 입력\n\n관리자용 링크를 꼭 저장해 주세요.",(nickname)=>{
       if(!nickname || nickname.trim()==="") nickname="나";
       user=makeID();
       localStorage.setItem("nickname_"+user,nickname.trim());
-      location.href=location.pathname+"?user="+encodeURIComponent(user);
+      location.href=location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname.trim());
     });
   },100);
 }
 
-if(isViewOnly){
-  document.body.classList.add("viewonly");
-}
+if(isViewOnly) document.body.classList.add("viewonly");
 
 const key="cards_"+user;
 const catKey="cats_"+user;
-const pwKey="pw_"+user;
 const themeKey="theme_"+user;
+const nameKey="nickname_"+user;
 
 let cards=JSON.parse(localStorage.getItem(key)||"[]");
 let cats=JSON.parse(localStorage.getItem(catKey)||"[]");
-let password=localStorage.getItem(pwKey)||"1234";
-let nickname=localStorage.getItem("nickname_"+user)||"";
-let current="all";
-let editIndex=null;
-let dragCardIndex=null;
-let dragCatIndex=null;
+let nickname=params.get("name") || localStorage.getItem(nameKey) || "";
 
 function save(){
   localStorage.setItem(key,JSON.stringify(cards));
   localStorage.setItem(catKey,JSON.stringify(cats));
-  localStorage.setItem(pwKey,password);
-}
-
-function login(){
-  if(isViewOnly)return;
-  openPopup("비밀번호 입력",(v)=>{
-    if(v===password)document.body.classList.add("edit");
-    else alert("비밀번호가 틀렸습니다.");
-  },"password");
-}
-
-function logout(){
-  document.body.classList.remove("edit");
-  catBox.style.display="none";
-  cardBox.style.display="none";
-  skinBox.style.display="none";
-  closeMenus();
-}
-
-function changePw(){
-  openPopup("기존 비밀번호",(old)=>{
-    if(old!==password){alert("기존 비밀번호가 틀렸습니다.");return;}
-    openPopup("새 비밀번호",(nw)=>{
-      if(!nw){alert("새 비밀번호를 입력해 주세요.");return;}
-      openPopup("새 비밀번호 확인",(ck)=>{
-        if(nw!==ck){alert("비밀번호가 일치하지 않습니다.");return;}
-        password=nw;
-        save();
-        alert("비밀번호가 변경되었습니다.");
-      },"password");
-    },"password");
-  },"password");
+  localStorage.setItem(nameKey,nickname);
 }
 
 function toggle(el){
-  if(!document.body.classList.contains("edit"))return;
+  if(isViewOnly)return;
   el.style.display=el.style.display==="block"?"none":"block";
+}
+
+function changeName(){
+  let v=nicknameInput.value.trim();
+  if(!v)return;
+  nickname=v;
+  localStorage.setItem(nameKey,nickname);
+  renderTitle();
+}
+
+function renderTitle(){
+  title.innerText=(nickname||"나")+"의 아카이브";
+  notice.innerText=isViewOnly ? "" : "관리자용 링크를 꼭 저장해 주세요. 공유할 때는 보기용 링크를 사용해 주세요.";
 }
 
 function renderCat(){
@@ -591,12 +504,12 @@ function renderCat(){
     let b=document.createElement("button");
     b.innerText=c;
     b.className="cat"+(current===c?" active":"");
-    b.draggable=document.body.classList.contains("edit");
+    b.draggable=!isViewOnly;
     b.onclick=()=>{current=c;renderCat();render();};
 
     b.oncontextmenu=e=>{
       e.preventDefault();
-      if(!document.body.classList.contains("edit"))return;
+      if(isViewOnly)return;
       if(confirm("정말 이 카테고리를 삭제하시겠습니까?")){
         cats=cats.filter(x=>x!==c);
         cards.forEach(card=>{if(card.cat===c)card.cat=""});
@@ -608,7 +521,7 @@ function renderCat(){
     b.ondragover=e=>e.preventDefault();
     b.ondrop=e=>{
       e.preventDefault();
-      if(!document.body.classList.contains("edit"))return;
+      if(isViewOnly)return;
       let moved=cats.splice(dragCatIndex,1)[0];
       cats.splice(i,0,moved);
       save();renderCat();
@@ -624,50 +537,38 @@ function renderCat(){
 }
 
 function addCat(){
-  if(!document.body.classList.contains("edit"))return;
+  if(isViewOnly)return;
   let v=newCat.value.trim();
   if(!v)return;
   if(!cats.includes(v))cats.push(v);
   newCat.value="";
   save();
   renderCat();
+  render();
 }
 
 function updateColorUI(){
   let style=styleSelect.value;
   ["c1row","c2row","c3row","c4row"].forEach(id=>document.getElementById(id).style.display="inline-block");
-
-  if(style==="auto"){
-    ["c1row","c2row","c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
-  }
-  if(style==="basic"){
-    ["c2row","c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
-  }
-  if(style==="grad2"){
-    ["c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
-  }
-  if(style==="grad3"){
-    c4row.style.display="none";
-  }
+  if(style==="auto")["c1row","c2row","c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
+  if(style==="basic")["c2row","c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
+  if(style==="grad2")["c3row","c4row"].forEach(id=>document.getElementById(id).style.display="none");
+  if(style==="grad3")c4row.style.display="none";
 }
 
 function getBg(card){
   let style=card.style||"auto";
   let c=card.colors||[];
-
   if(style==="basic")return c[0]||"#f8fbf7";
   if(style==="grad2")return `linear-gradient(135deg,${c[0]||"#f4a7c0"},${c[1]||"#bfe3b4"})`;
   if(style==="grad3")return `linear-gradient(135deg,${c[0]||"#f4a7c0"},${c[1]||"#bfe3b4"},${c[2]||"#e8d9a4"})`;
   if(style==="grad4")return `linear-gradient(135deg,${c[0]||"#f4a7c0"},${c[1]||"#bfe3b4"},${c[2]||"#e8d9a4"},${c[3]||"#a4c7e8"})`;
-
   return "linear-gradient(135deg,#f8fbf7,#dbe9d7)";
 }
 
 function saveCard(){
-  if(!document.body.classList.contains("edit"))return;
-
+  if(isViewOnly)return;
   let fileObj=fileInput.files[0];
-
   if(fileObj){
     let reader=new FileReader();
     reader.onload=e=>pushCard(e.target.result);
@@ -680,7 +581,6 @@ function saveCard(){
 function pushCard(src){
   let style=styleSelect.value;
   let colors=[c1.value,c2.value,c3.value,c4.value];
-
   if(style==="auto")colors=[];
   if(style==="basic")colors=colors.slice(0,1);
   if(style==="grad2")colors=colors.slice(0,2);
@@ -692,12 +592,13 @@ function pushCard(src){
     mini:miniInput.value.trim()||"",
     img:src||"",
     fit:fitSelect.value||"contain",
+    ratio:ratioSelect.value||"square",
     link:linkInput.value||"#",
     desc:descInput.value||"",
     cat:catSelect.value||"",
     style:style,
     colors:colors,
-    order:editIndex===null?Date.now():cards[editIndex].order
+    date:editIndex===null?Date.now():cards[editIndex].date
   };
 
   if(editIndex===null)cards.unshift(obj);
@@ -721,11 +622,24 @@ function clearForm(){
   descInput.value="";
   fileInput.value="";
   fitSelect.value="contain";
+  ratioSelect.value="square";
   styleSelect.value="auto";
   updateColorUI();
 }
 
-function render(list=cards){
+function sortedList(){
+  let arr=[...cards];
+  if(sortMode==="name")arr.sort((a,b)=>(a.name||"").localeCompare(b.name||"","ko"));
+  if(sortMode==="latest")arr.sort((a,b)=>(b.date||0)-(a.date||0));
+  return arr;
+}
+
+function sortCards(mode){
+  sortMode=mode;
+  render();
+}
+
+function render(list=sortedList()){
   grid.innerHTML="";
 
   list.forEach(c=>{
@@ -734,22 +648,22 @@ function render(list=cards){
     let realIndex=cards.indexOf(c);
     let wrap=document.createElement("div");
     wrap.className="card-wrap";
-    wrap.draggable=document.body.classList.contains("edit");
+    wrap.draggable=!isViewOnly && sortMode==="manual";
 
     wrap.ondragstart=()=>{dragCardIndex=realIndex};
     wrap.ondragover=e=>e.preventDefault();
     wrap.ondrop=e=>{
       e.preventDefault();
-      if(!document.body.classList.contains("edit"))return;
+      if(isViewOnly || sortMode!=="manual")return;
       let moved=cards.splice(dragCardIndex,1)[0];
       cards.splice(realIndex,0,moved);
       save();render();
     };
 
     wrap.innerHTML=`
-      <div class="card" style="background:${getBg(c)}">
+      <div class="card fit-${c.fit||"contain"} ratio-${c.ratio||"square"}" style="background:${getBg(c)}">
         <a href="${c.link||"#"}">
-          <img src="${c.img||""}" style="object-fit:${c.fit||'contain'}">
+          <img src="${c.img||""}">
           <div class="overlay">${c.desc||""}</div>
           <div class="text">
             ${c.name||"이름 없음"}
@@ -757,7 +671,7 @@ function render(list=cards){
             <div class="sub">${c.cat||"카테고리 없음"}</div>
           </div>
         </a>
-        <button class="menu-btn icon admin" data-tip="메뉴" onclick="menu(event,${realIndex})">⋯</button>
+        <button class="menu-btn icon owner" data-tip="메뉴" onclick="menu(event,${realIndex})">⋯</button>
         <div class="menu" id="m${realIndex}">
           <button onclick="editCard(event,${realIndex})">수정</button>
           <button onclick="del(event,${realIndex})">삭제</button>
@@ -772,7 +686,7 @@ function render(list=cards){
 function editCard(e,i){
   e.preventDefault();
   e.stopPropagation();
-  if(!document.body.classList.contains("edit"))return;
+  if(isViewOnly)return;
 
   let c=cards[i];
   editIndex=i;
@@ -784,6 +698,7 @@ function editCard(e,i){
   linkInput.value=c.link||"";
   descInput.value=c.desc||"";
   fitSelect.value=c.fit||"contain";
+  ratioSelect.value=c.ratio||"square";
   catSelect.value=c.cat||"";
   styleSelect.value=c.style||"auto";
 
@@ -801,7 +716,7 @@ function editCard(e,i){
 function del(e,i){
   e.preventDefault();
   e.stopPropagation();
-  if(!document.body.classList.contains("edit"))return;
+  if(isViewOnly)return;
 
   if(confirm("정말 삭제할까요?")){
     cards.splice(i,1);
@@ -813,7 +728,7 @@ function del(e,i){
 function menu(e,i){
   e.preventDefault();
   e.stopPropagation();
-  if(!document.body.classList.contains("edit"))return;
+  if(isViewOnly)return;
 
   closeMenus();
   let m=document.getElementById("m"+i);
@@ -832,23 +747,20 @@ function searchCard(){
 }
 
 function backup(){
-  if(!document.body.classList.contains("edit"))return;
-
-  let data=JSON.stringify({cards,cats,password,nickname});
+  if(isViewOnly)return;
+  let data=JSON.stringify({cards,cats,nickname});
   navigator.clipboard.writeText(data).then(()=>alert("백업 데이터가 복사되었습니다."));
 }
 
 function loadData(){
-  if(!document.body.classList.contains("edit"))return;
-
+  if(isViewOnly)return;
   openPopup("백업 데이터 붙여넣기",(txt)=>{
     try{
       let d=JSON.parse(txt);
       cards=d.cards||[];
       cats=d.cats||[];
-      password=d.password||password;
       nickname=d.nickname||nickname;
-      localStorage.setItem("nickname_"+user,nickname);
+      localStorage.setItem(nameKey,nickname);
       save();
       renderTitle();
       renderCat();
@@ -861,13 +773,11 @@ function loadData(){
 }
 
 function resetAll(){
-  if(!document.body.classList.contains("edit"))return;
-
+  if(isViewOnly)return;
   if(confirm("정말 완전 초기화할까요?")){
     localStorage.removeItem(key);
     localStorage.removeItem(catKey);
-    localStorage.removeItem(pwKey);
-    localStorage.removeItem("nickname_"+user);
+    localStorage.removeItem(nameKey);
     localStorage.removeItem(themeKey);
     location.reload();
   }
@@ -876,7 +786,7 @@ function resetAll(){
 function updateSkinUI(){
   let type=skinType.value;
   themeSelect.style.display= type==="preset" ? "inline-block" : "none";
-
+  checkSelect.style.display= type==="check" ? "inline-block" : "none";
   skinColor1.style.display= type==="solid" || type==="gradient" ? "inline-block" : "none";
   skinColor2.style.display= type==="gradient" ? "inline-block" : "none";
   skinColor3.style.display= type==="gradient" ? "inline-block" : "none";
@@ -886,6 +796,7 @@ function saveSkin(){
   let data={
     type:skinType.value,
     preset:themeSelect.value,
+    check:checkSelect.value,
     c1:themeC1.value,
     c2:themeC2.value,
     c3:themeC3.value
@@ -896,7 +807,6 @@ function saveSkin(){
 
 function applySkin(data){
   if(!data)data={type:"preset",preset:"green"};
-
   let root=document.documentElement;
 
   function setVars(bg1,bg2,bg3,dot1,dot2,main,soft,box,line){
@@ -909,12 +819,10 @@ function applySkin(data){
     root.style.setProperty("--soft",soft);
     root.style.setProperty("--box",box);
     root.style.setProperty("--line",line);
-
     document.body.style.background =
       `radial-gradient(circle at 18px 18px,var(--dot1) 2px,transparent 3px),
        radial-gradient(circle at 58px 58px,var(--dot2) 3px,transparent 4px),
        linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3))`;
-
     document.body.style.backgroundSize="76px 76px,76px 76px,100% 100%";
     document.body.style.backgroundAttachment="fixed";
   }
@@ -935,18 +843,19 @@ function applySkin(data){
     document.body.style.backgroundAttachment="fixed";
   }
   else if(data.type==="check"){
-    root.style.setProperty("--main","#b59b7b");
-    root.style.setProperty("--soft","#f1ded0");
-    root.style.setProperty("--box","#fffaf5");
-    root.style.setProperty("--line","#e3c8b1");
+    let a="#f7efe7", b="#fff9f4", main="#b59b7b";
+    if(data.check==="green"){a="#dcebd9";b="#f7fff5";main="#8fae8c"}
+    if(data.check==="pink"){a="#ffe0ea";b="#fff7fa";main="#e7a3b8"}
+    if(data.check==="blue"){a="#d9ecff";b="#f7fbff";main="#8baecd"}
+    root.style.setProperty("--main",main);
+    root.style.setProperty("--soft",a);
+    root.style.setProperty("--box","#ffffff");
+    root.style.setProperty("--line",a);
     document.body.style.background=
-      `linear-gradient(45deg,#f7efe7 25%,transparent 25%),
-       linear-gradient(-45deg,#f7efe7 25%,transparent 25%),
-       linear-gradient(45deg,transparent 75%,#f7efe7 75%),
-       linear-gradient(-45deg,transparent 75%,#f7efe7 75%),
-       #fff9f4`;
-    document.body.style.backgroundSize="40px 40px";
-    document.body.style.backgroundPosition="0 0,0 20px,20px -20px,-20px 0px";
+      `linear-gradient(90deg,${a} 50%,transparent 50%),
+       linear-gradient(${a} 50%,transparent 50%),
+       ${b}`;
+    document.body.style.backgroundSize="42px 42px";
   }
   else{
     if(data.preset==="pink")setVars("#fff1f5","#ffe4ec","#fff7fa","#ffdbe7","#fff6fa","#e7a3b8","#f4d5dd","#fff8fb","#e8c4cf");
@@ -957,18 +866,26 @@ function applySkin(data){
 }
 
 function copyOwnerLink(){
-  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user);
+  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"");
   navigator.clipboard.writeText(url).then(()=>alert("관리자용 링크가 복사되었습니다."));
 }
 
 function copyShareLink(){
-  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&view=1";
+  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"")+"&view=1";
   navigator.clipboard.writeText(url).then(()=>alert("보기용 링크가 복사되었습니다."));
 }
 
 function renderTitle(){
   title.innerText=(nickname||"나")+"의 아카이브";
-  notice.innerText=isViewOnly ? "보기 전용 페이지입니다." : "관리자용 링크를 꼭 저장해 주세요. 공유할 때는 보기용 링크를 사용해 주세요.";
+  notice.innerText=isViewOnly ? "" : "관리자용 링크를 꼭 저장해 주세요. 공유할 때는 보기용 링크를 사용해 주세요.";
+}
+
+function changeName(){
+  let v=nicknameInput.value.trim();
+  if(!v)return;
+  nickname=v;
+  localStorage.setItem(nameKey,nickname);
+  renderTitle();
 }
 
 document.addEventListener("click",e=>{

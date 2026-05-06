@@ -347,9 +347,11 @@ function ref(){
 }
 
 function saveRemote(){
-  if(!user || isViewOnly)return;
+  if(!user || isViewOnly)return Promise.resolve();
+
   showLoading();
-  ref().set({
+
+  return ref().set({
     cards,
     cats,
     nickname,
@@ -366,7 +368,9 @@ function saveRemote(){
 
 function loadRemote(){
   if(!user)return;
+
   showLoading();
+
   ref().once("value").then((snap)=>{
     let data=snap.val();
 
@@ -449,9 +453,9 @@ function renderCat(){
       if(confirm("정말 이 카테고리를 삭제하시겠습니까?")){
         cats=cats.filter(x=>x!==c);
         cards.forEach(card=>{if(card.cat===c)card.cat=""});
-        saveRemote();
         renderCat();
         render();
+        saveRemote();
       }
     };
 
@@ -462,8 +466,8 @@ function renderCat(){
       if(isViewOnly)return;
       let moved=cats.splice(dragCatIndex,1)[0];
       cats.splice(i,0,moved);
-      saveRemote();
       renderCat();
+      saveRemote();
     };
 
     catBar.appendChild(b);
@@ -481,9 +485,9 @@ function addCat(){
   if(!v)return;
   if(!cats.includes(v))cats.push(v);
   newCat.value="";
-  saveRemote();
   renderCat();
   render();
+  saveRemote();
 }
 
 function updateColorUI(){
@@ -602,9 +606,9 @@ function pushCard(src){
   }
 
   clearForm();
-  saveRemote();
   renderCat();
   render();
+  saveRemote();
 }
 
 function clearForm(){
@@ -654,8 +658,8 @@ function render(list=sortedList()){
       if(isViewOnly || sortMode!=="manual")return;
       let moved=cards.splice(dragCardIndex,1)[0];
       cards.splice(realIndex,0,moved);
-      saveRemote();
       render();
+      saveRemote();
     };
 
     wrap.innerHTML=`
@@ -716,8 +720,8 @@ function del(e,i){
 
   if(confirm("정말 삭제할까요?")){
     cards.splice(i,1);
-    saveRemote();
     render();
+    saveRemote();
   }
 }
 
@@ -758,10 +762,10 @@ function loadData(){
       nickname=d.nickname||nickname;
       skinData=d.skin||skinData;
       applySkin(skinData);
-      saveRemote();
       renderTitle();
       renderCat();
       render();
+      saveRemote();
       alert("불러오기 완료");
     }catch(e){
       alert("데이터 형식이 이상합니다.");
@@ -873,16 +877,17 @@ function copyOwnerLink(){
 }
 
 function copyShareLink(){
-  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"")+"&view=1";
+  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"")+"&view=1&t="+Date.now();
   navigator.clipboard.writeText(url).then(()=>alert("보기용 링크가 복사되었습니다."));
 }
 
 function copyTistoryHTML(){
   if(isViewOnly)return;
 
-  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"")+"&view=1";
+  saveRemote().then(()=>{
+    let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&name="+encodeURIComponent(nickname||"")+"&view=1&t="+Date.now();
 
-  let html=`<iframe
+    let html=`<iframe
 src="${url}"
 width="100%"
 height="1800"
@@ -891,7 +896,8 @@ allowfullscreen
 style="display:block;width:100%;border:none;border-radius:28px;overflow:hidden;background:transparent;box-shadow:0 8px 24px rgba(0,0,0,0.08);">
 </iframe>`;
 
-  navigator.clipboard.writeText(html).then(()=>alert("티스토리용 HTML이 복사되었습니다."));
+    navigator.clipboard.writeText(html).then(()=>alert("티스토리용 HTML이 복사되었습니다."));
+  });
 }
 
 function renderTitle(){

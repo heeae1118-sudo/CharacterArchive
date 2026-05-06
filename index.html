@@ -7,29 +7,47 @@
 
 <style>
 *{box-sizing:border-box}
+
+:root{
+  --bg1:#edf6ea;
+  --bg2:#dfeedd;
+  --bg3:#edf7f0;
+  --dot1:#dfeadd;
+  --dot2:#f7fbf6;
+  --main:#8fae8c;
+  --soft:#dbe9d7;
+  --box:#f8fbf7;
+  --text:#3f4f44;
+  --line:#c9dcc5;
+}
+
 body{
   margin:0;
   padding:24px;
-  color:#3f4f44;
+  color:var(--text);
   font-family:'Gowun Dodum',sans-serif;
   background:
-    radial-gradient(circle at 18px 18px,#dfeadd 2px,transparent 3px),
-    radial-gradient(circle at 58px 58px,#f7fbf6 3px,transparent 4px),
-    linear-gradient(135deg,#edf6ea,#dfeedd,#edf7f0);
+    radial-gradient(circle at 18px 18px,var(--dot1) 2px,transparent 3px),
+    radial-gradient(circle at 58px 58px,var(--dot2) 3px,transparent 4px),
+    linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
   background-size:76px 76px,76px 76px,100% 100%;
   background-attachment:fixed;
 }
+
 a{text-decoration:none;color:inherit}
+
 button,input,select{
   font-family:'Gowun Dodum',sans-serif;
   font-size:16px;
 }
+
 button{
   border:none;
   cursor:pointer;
   background:transparent;
-  color:#4f5f54;
+  color:var(--text);
 }
+
 .wrap{max-width:1120px;margin:auto}
 
 .title{
@@ -55,20 +73,23 @@ button{
   display:flex;
   gap:8px;
 }
+
 .icon{
   width:46px;
   height:46px;
-  border:2px solid #8fae8c;
+  border:2px solid var(--main);
   border-radius:50%;
   background:#ffffff99;
-  color:#4f5f54;
+  color:var(--text);
   font-size:20px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   position:relative;
 }
-.icon:hover{background:#f6fbf5}
+
+.icon:hover{background:#ffffffdd}
+
 .icon::after{
   content:attr(data-tip);
   position:absolute;
@@ -84,11 +105,14 @@ button{
   pointer-events:none;
   box-shadow:0 4px 12px #0001;
 }
+
 .icon:hover::after{opacity:1}
 
 .admin{display:none}
 body.edit .admin{display:inline-flex}
 body.edit #loginBtn{display:none}
+body.viewonly #loginBtn,
+body.viewonly .admin{display:none!important}
 
 .cat-bar{
   display:flex;
@@ -97,37 +121,43 @@ body.edit #loginBtn{display:none}
   gap:8px;
   margin:18px 0;
 }
+
 .cat{
   padding:8px 16px;
   border-radius:999px;
-  background:#dbe9d7;
+  background:var(--soft);
 }
+
 .cat.active{
-  background:#8fae8c;
+  background:var(--main);
   color:#fff;
 }
+
 .cat[draggable="true"]{cursor:grab}
 
 .center-btns{text-align:center;margin-bottom:14px}
+
 .soft-btn{
-  background:#f8fbf7;
-  border:1px solid #c9dcc5;
+  background:var(--box);
+  border:1px solid var(--line);
   border-radius:999px;
   padding:10px 16px;
   margin:5px;
 }
-.soft-btn:hover{background:#eef4ed}
+
+.soft-btn:hover{background:var(--soft)}
 
 .box{
   display:none;
-  background:#f8fbf7dd;
-  border:1px solid #d9e4d5;
+  background:#ffffffcc;
+  border:1px solid var(--line);
   border-radius:28px;
   padding:18px;
   margin-bottom:16px;
   text-align:center;
   box-shadow:0 8px 18px #0001;
 }
+
 .box input,.box select{
   border:none;
   background:#fff;
@@ -135,8 +165,9 @@ body.edit #loginBtn{display:none}
   padding:12px;
   margin:6px;
   width:220px;
-  box-shadow:inset 0 0 0 1px #d9e4d5;
+  box-shadow:inset 0 0 0 1px var(--line);
 }
+
 .color-row{display:inline-block}
 
 .grid{
@@ -144,7 +175,9 @@ body.edit #loginBtn{display:none}
   grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
   gap:18px;
 }
+
 .card-wrap[draggable="true"]{cursor:grab}
+
 .card{
   position:relative;
   border-radius:30px;
@@ -153,7 +186,9 @@ body.edit #loginBtn{display:none}
   box-shadow:0 8px 18px #0002;
   transition:.2s;
 }
+
 .card:hover{transform:translateY(-4px)}
+
 .card img{
   width:100%;
   aspect-ratio:1/1;
@@ -161,6 +196,7 @@ body.edit #loginBtn{display:none}
   padding:12px;
   display:block;
 }
+
 .text{
   text-align:center;
   background:#ffffffcc;
@@ -169,6 +205,7 @@ body.edit #loginBtn{display:none}
   font-size:28px;
   font-weight:700;
 }
+
 .mini{
   font-family:'Gowun Dodum',sans-serif;
   font-size:15px;
@@ -176,6 +213,7 @@ body.edit #loginBtn{display:none}
   font-weight:400;
   margin-top:3px;
 }
+
 .sub{
   font-family:'Gowun Dodum',sans-serif;
   font-size:14px;
@@ -183,6 +221,7 @@ body.edit #loginBtn{display:none}
   font-weight:400;
   margin-top:3px;
 }
+
 .overlay{
   position:absolute;
   inset:0;
@@ -197,6 +236,7 @@ body.edit #loginBtn{display:none}
   pointer-events:none;
   transition:.2s;
 }
+
 .card:hover .overlay{opacity:1}
 
 .menu-btn{
@@ -205,6 +245,7 @@ body.edit #loginBtn{display:none}
   right:10px;
   z-index:10;
 }
+
 .menu{
   display:none;
   position:absolute;
@@ -216,12 +257,14 @@ body.edit #loginBtn{display:none}
   overflow:hidden;
   box-shadow:0 5px 14px #0002;
 }
+
 .menu button{
   display:block;
   width:90px;
   padding:10px;
 }
-.menu button:hover{background:#eef4ed}
+
+.menu button:hover{background:var(--soft)}
 
 .float{
   position:fixed;
@@ -242,14 +285,16 @@ body.edit #loginBtn{display:none}
   justify-content:center;
   z-index:999;
 }
+
 .popup{
   width:320px;
-  background:#f8fbf7;
+  background:var(--box);
   border-radius:30px;
   padding:24px;
   text-align:center;
   box-shadow:0 8px 20px #0003;
 }
+
 .popup-title{
   font-family:'Gaegu',cursive;
   font-size:28px;
@@ -257,16 +302,18 @@ body.edit #loginBtn{display:none}
   margin-bottom:12px;
   white-space:pre-line;
 }
+
 .popup input{
   width:90%;
   border:none;
   border-radius:16px;
   padding:12px;
   background:#fff;
-  box-shadow:inset 0 0 0 1px #d9e4d5;
+  box-shadow:inset 0 0 0 1px var(--line);
 }
+
 .popup button{
-  background:#dbe9d7;
+  background:var(--soft);
   border-radius:14px;
   padding:10px 14px;
   margin:12px 4px 0;
@@ -309,22 +356,36 @@ body.edit #loginBtn{display:none}
     <button class="soft-btn admin" onclick="toggle(catBox)">+ 카테고리</button>
     <button class="soft-btn admin" onclick="toggle(cardBox)">+ 카드</button>
     <button class="soft-btn admin" onclick="changePw()">비밀번호 변경</button>
+    <button class="soft-btn admin" onclick="copyOwnerLink()">내 링크 복사</button>
+    <button class="soft-btn admin" onclick="copyShareLink()">공유 링크 복사</button>
   </div>
 
   <div class="box" id="skinBox">
-    <select id="themeSelect" onchange="changeTheme()">
+    <select id="skinType" onchange="updateSkinUI()">
+      <option value="preset">기본 스킨</option>
+      <option value="solid">단색</option>
+      <option value="gradient">사용자 지정 그라데이션</option>
+    </select>
+
+    <select id="themeSelect">
       <option value="green">연두</option>
       <option value="pink">핑크</option>
       <option value="blue">하늘</option>
       <option value="purple">보라</option>
     </select>
+
+    <span id="skinColor1">색1 <input type="color" id="themeC1" value="#edf6ea"></span>
+    <span id="skinColor2">색2 <input type="color" id="themeC2" value="#dfeedd"></span>
+    <span id="skinColor3">색3 <input type="color" id="themeC3" value="#edf7f0"></span>
+
+    <button class="soft-btn" onclick="saveSkin()">적용</button>
   </div>
 
   <div class="box" id="catBox">
     <input id="newCat" placeholder="카테고리 이름">
     <button class="soft-btn" onclick="addCat()">추가</button>
     <div style="font-size:13px;color:#7b8b7d;margin-top:6px;">
-      관리자 모드에서 카테고리 버튼을 드래그하면 정렬돼요. 우클릭하면 삭제돼요.
+      관리자 모드에서 카테고리 버튼을 드래그하면 정렬됩니다. 우클릭하면 삭제됩니다.
     </div>
   </div>
 
@@ -355,7 +416,7 @@ body.edit #loginBtn{display:none}
 
     <button id="saveBtn" class="soft-btn" onclick="saveCard()">생성</button>
     <div style="font-size:13px;color:#7b8b7d;">
-      관리자 모드에서 카드를 드래그하면 정렬돼요.
+      관리자 모드에서 카드를 드래그하면 정렬됩니다.
     </div>
   </div>
 
@@ -381,11 +442,13 @@ body.edit #loginBtn{display:none}
 </div>
 
 <script>
-let user=new URLSearchParams(location.search).get("user");
+let params=new URLSearchParams(location.search);
+let user=params.get("user");
+let isViewOnly=params.get("view")==="1";
 let popupCallback=null;
 
 function makeID(){
-  return Math.random().toString(36).substring(2,10) + Date.now().toString(36).slice(-4);
+  return Math.random().toString(36).substring(2,10)+Date.now().toString(36).slice(-4);
 }
 
 function openPopup(text,cb,type="text"){
@@ -408,13 +471,17 @@ function popupCancel(){
 
 if(!user){
   setTimeout(()=>{
-    openPopup("닉네임 입력\n\n링크를 꼭 저장하거나 백업해줘!",(nickname)=>{
-      if(!nickname || nickname.trim()==="") nickname="guest";
+    openPopup("닉네임 입력\n\n링크를 꼭 저장하거나 백업해 주세요.",(nickname)=>{
+      if(!nickname || nickname.trim()==="") nickname="나";
       user=makeID();
       localStorage.setItem("nickname_"+user,nickname.trim());
       location.href=location.pathname+"?user="+encodeURIComponent(user);
     });
   },100);
+}
+
+if(isViewOnly){
+  document.body.classList.add("viewonly");
 }
 
 const key="cards_"+user;
@@ -425,7 +492,7 @@ const themeKey="theme_"+user;
 let cards=JSON.parse(localStorage.getItem(key)||"[]");
 let cats=JSON.parse(localStorage.getItem(catKey)||"[]");
 let password=localStorage.getItem(pwKey)||"1234";
-let nickname=localStorage.getItem("nickname_"+user)||"guest";
+let nickname=localStorage.getItem("nickname_"+user)||"";
 let current="all";
 let editIndex=null;
 let dragCardIndex=null;
@@ -438,9 +505,10 @@ function save(){
 }
 
 function login(){
+  if(isViewOnly)return;
   openPopup("비밀번호 입력",(v)=>{
     if(v===password)document.body.classList.add("edit");
-    else alert("비밀번호가 틀렸습니다");
+    else alert("비밀번호가 틀렸습니다.");
   },"password");
 }
 
@@ -454,14 +522,14 @@ function logout(){
 
 function changePw(){
   openPopup("기존 비밀번호",(old)=>{
-    if(old!==password){alert("기존 비밀번호가 틀렸습니다");return;}
+    if(old!==password){alert("기존 비밀번호가 틀렸습니다.");return;}
     openPopup("새 비밀번호",(nw)=>{
-      if(!nw){alert("새 비밀번호를 입력해주세요");return;}
+      if(!nw){alert("새 비밀번호를 입력해 주세요.");return;}
       openPopup("새 비밀번호 확인",(ck)=>{
-        if(nw!==ck){alert("비밀번호가 일치하지 않습니다");return;}
+        if(nw!==ck){alert("비밀번호가 일치하지 않습니다.");return;}
         password=nw;
         save();
-        alert("비밀번호가 변경되었습니다");
+        alert("비밀번호가 변경되었습니다.");
       },"password");
     },"password");
   },"password");
@@ -695,7 +763,7 @@ function del(e,i){
   e.stopPropagation();
   if(!document.body.classList.contains("edit"))return;
 
-  if(confirm("정말 삭제할까?")){
+  if(confirm("정말 삭제할까요?")){
     cards.splice(i,1);
     save();
     render();
@@ -727,7 +795,7 @@ function backup(){
   if(!document.body.classList.contains("edit"))return;
 
   let data=JSON.stringify({cards,cats,password,nickname});
-  navigator.clipboard.writeText(data).then(()=>alert("백업 데이터가 복사되었습니다"));
+  navigator.clipboard.writeText(data).then(()=>alert("백업 데이터가 복사되었습니다."));
 }
 
 function loadData(){
@@ -747,7 +815,7 @@ function loadData(){
       render();
       alert("불러오기 완료");
     }catch(e){
-      alert("데이터 형식이 이상합니다");
+      alert("데이터 형식이 이상합니다.");
     }
   });
 }
@@ -755,7 +823,7 @@ function loadData(){
 function resetAll(){
   if(!document.body.classList.contains("edit"))return;
 
-  if(confirm("정말 완전 초기화할까?")){
+  if(confirm("정말 완전 초기화할까요?")){
     localStorage.removeItem(key);
     localStorage.removeItem(catKey);
     localStorage.removeItem(pwKey);
@@ -765,36 +833,70 @@ function resetAll(){
   }
 }
 
-function changeTheme(){
-  let theme=themeSelect.value;
-  localStorage.setItem(themeKey,theme);
-  applyTheme(theme);
+function updateSkinUI(){
+  let type=skinType.value;
+  themeSelect.style.display= type==="preset" ? "inline-block" : "none";
+  skinColor1.style.display= type==="preset" ? "none" : "inline-block";
+  skinColor2.style.display= type==="gradient" ? "inline-block" : "none";
+  skinColor3.style.display= type==="gradient" ? "inline-block" : "none";
 }
 
-function applyTheme(theme){
-  if(theme==="pink"){
-    document.body.style.background=
-    "radial-gradient(circle at 18px 18px,#ffdbe7 2px,transparent 3px),radial-gradient(circle at 58px 58px,#fff6fa 3px,transparent 4px),linear-gradient(135deg,#fff1f5,#ffe4ec,#fff7fa)";
+function saveSkin(){
+  let data={
+    type:skinType.value,
+    preset:themeSelect.value,
+    c1:themeC1.value,
+    c2:themeC2.value,
+    c3:themeC3.value
+  };
+  localStorage.setItem(themeKey,JSON.stringify(data));
+  applySkin(data);
+}
+
+function applySkin(data){
+  if(!data)data={type:"preset",preset:"green"};
+
+  let root=document.documentElement;
+
+  let set=(bg1,bg2,bg3,dot1,dot2,main,soft,box,line)=>{
+    root.style.setProperty("--bg1",bg1);
+    root.style.setProperty("--bg2",bg2);
+    root.style.setProperty("--bg3",bg3);
+    root.style.setProperty("--dot1",dot1);
+    root.style.setProperty("--dot2",dot2);
+    root.style.setProperty("--main",main);
+    root.style.setProperty("--soft",soft);
+    root.style.setProperty("--box",box);
+    root.style.setProperty("--line",line);
+  };
+
+  if(data.type==="solid"){
+    set(data.c1,data.c1,data.c1,data.c1,"#ffffff",data.c1,data.c1,"#ffffff",data.c1);
   }
-  else if(theme==="blue"){
-    document.body.style.background=
-    "radial-gradient(circle at 18px 18px,#d9ecff 2px,transparent 3px),radial-gradient(circle at 58px 58px,#f6fbff 3px,transparent 4px),linear-gradient(135deg,#eef7ff,#ddefff,#f6fbff)";
-  }
-  else if(theme==="purple"){
-    document.body.style.background=
-    "radial-gradient(circle at 18px 18px,#e7ddff 2px,transparent 3px),radial-gradient(circle at 58px 58px,#faf7ff 3px,transparent 4px),linear-gradient(135deg,#f5efff,#ece4ff,#faf7ff)";
+  else if(data.type==="gradient"){
+    set(data.c1,data.c2,data.c3,data.c2,"#ffffff",data.c2,data.c1,"#ffffff",data.c2);
   }
   else{
-    document.body.style.background=
-    "radial-gradient(circle at 18px 18px,#dfeadd 2px,transparent 3px),radial-gradient(circle at 58px 58px,#f7fbf6 3px,transparent 4px),linear-gradient(135deg,#edf6ea,#dfeedd,#edf7f0)";
+    if(data.preset==="pink")set("#fff1f5","#ffe4ec","#fff7fa","#ffdbe7","#fff6fa","#e7a3b8","#f4d5dd","#fff8fb","#e8c4cf");
+    else if(data.preset==="blue")set("#eef7ff","#ddefff","#f6fbff","#d9ecff","#f6fbff","#8baecd","#d9eafd","#f8fcff","#c6dcef");
+    else if(data.preset==="purple")set("#f5efff","#ece4ff","#faf7ff","#e7ddff","#faf7ff","#a899c9","#e1d8f5","#fbf8ff","#d6cbe8");
+    else set("#edf6ea","#dfeedd","#edf7f0","#dfeadd","#f7fbf6","#8fae8c","#dbe9d7","#f8fbf7","#c9dcc5");
   }
-  document.body.style.backgroundSize="76px 76px,76px 76px,100% 100%";
-  document.body.style.backgroundAttachment="fixed";
+}
+
+function copyOwnerLink(){
+  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user);
+  navigator.clipboard.writeText(url).then(()=>alert("내 링크가 복사되었습니다."));
+}
+
+function copyShareLink(){
+  let url=location.origin+location.pathname+"?user="+encodeURIComponent(user)+"&view=1";
+  navigator.clipboard.writeText(url).then(()=>alert("보기 전용 공유 링크가 복사되었습니다."));
 }
 
 function renderTitle(){
-  title.innerText=nickname+"의 아카이브";
-  notice.innerText="주소를 꼭 저장해줘. 주소를 잃어버리면 이 페이지로 다시 들어오기 어려워.";
+  title.innerText=(nickname||"나")+"의 아카이브";
+  notice.innerText=isViewOnly ? "보기 전용 페이지입니다." : "내 링크를 꼭 저장해 주세요. 공유할 때는 보기 전용 링크를 사용해 주세요.";
 }
 
 document.addEventListener("click",e=>{
@@ -802,8 +904,11 @@ document.addEventListener("click",e=>{
 });
 
 updateColorUI();
-applyTheme(localStorage.getItem(themeKey)||"green");
-if(themeSelect)themeSelect.value=localStorage.getItem(themeKey)||"green";
+updateSkinUI();
+
+let savedSkin=localStorage.getItem(themeKey);
+applySkin(savedSkin?JSON.parse(savedSkin):{type:"preset",preset:"green"});
+
 renderTitle();
 renderCat();
 render();
